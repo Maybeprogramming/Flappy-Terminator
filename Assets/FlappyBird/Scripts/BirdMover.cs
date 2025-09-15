@@ -14,6 +14,11 @@ public class BirdMover : MonoBehaviour
     private Quaternion _maxRotation;
     private Quaternion _minRotation;
 
+    //В скрипт с ракетой
+    [SerializeField] private GameObject _rocket;
+    [SerializeField] private float _speedRocket;
+    private Transform _rocketTransform;
+
     private void Start()
     {
         _startPosition = transform.position;
@@ -34,6 +39,19 @@ public class BirdMover : MonoBehaviour
         }
 
         transform.rotation = Quaternion.Lerp(transform.rotation, _minRotation, _rotationSpeed * Time.deltaTime);
+
+        //В скрипт с ракетой
+        if (Input.GetMouseButtonDown(0))
+        {
+            _rocketTransform = Instantiate(_rocket, transform.position, transform.rotation).transform;
+            Debug.Log("Нажата кнопка ЛКМ");
+        }
+
+        if (_rocketTransform != null)
+        {
+            _rocketTransform.position += _rocketTransform.right * Time.deltaTime * _speedRocket;
+        }
+
     }
 
     public void Reset()
