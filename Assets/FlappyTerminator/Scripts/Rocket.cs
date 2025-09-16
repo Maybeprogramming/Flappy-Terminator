@@ -38,7 +38,6 @@ public class Rocket : MonoBehaviour
     private IEnumerator LifeCountdown()
     {
         yield return _delayTimer;
-        Debug.Log("Корутина завершилась");
         gameObject.SetActive(false);
     }
 }

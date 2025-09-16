@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class EnemySpawner : ObjectPool<Enemy>
 {
+    [Header("Спавнер врагов:")]
     [SerializeField] private Transform _mainCamera;
     [SerializeField] private ObjectPool<Enemy> _pool;
     [SerializeField] private int _maxEnemyCount = 3;
@@ -13,6 +14,7 @@ public class EnemySpawner : ObjectPool<Enemy>
     private void Awake()
     {
         _delaySpawn = new WaitForSeconds(_delaySpawnSeconds);
+        
     }
 
     private void Start()
@@ -22,9 +24,9 @@ public class EnemySpawner : ObjectPool<Enemy>
 
     private void Spawn()
     {
-        var enemy = _pool.GetObject();
+        Enemy enemy = _pool.GetObject();
+        enemy.Init(_pool, _mainCamera);
         enemy.gameObject.SetActive(true);
-        enemy.Init(this, _mainCamera);
     }
 
     private IEnumerator EnemySpawning()

@@ -889,7 +889,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _container: {fileID: 1879254870}
-  _prefab: {fileID: 5664797890579208923, guid: 9e75df57770fe6347a65407b957a770d, type: 3}
+  _prefab: {fileID: 5612805394839580342, guid: 531455f814096524f91e2834958aca6b, type: 3}
   _delay: 4
   _lowerBound: 2
   _upperBound: -2
@@ -1694,8 +1694,7 @@ MonoBehaviour:
   _mainCamera: {fileID: 519420032}
   _pool: {fileID: 1597627247}
   _maxEnemyCount: 3
-  _delaySpawnSeconds: 2
-  _isRun: 1
+  _delaySpawnSeconds: 3
 --- !u!1 &1677907862
 GameObject:
   m_ObjectHideFlags: 0
