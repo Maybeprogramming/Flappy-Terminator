@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private ObjectPool<Enemy> _pool;
     [SerializeField] private float _xOffset;
+    [SerializeField] private float _yOffset;
     [SerializeField] private Transform _mainCamera;
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -28,6 +30,11 @@ public class Enemy : MonoBehaviour
     {
         _pool = pool;
         _mainCamera = mainCamera;
+
+        //Переписать
+        var position = transform.position;
+        position.y = _mainCamera.transform.position.y + _yOffset + Random.Range(-2, 2);
+        transform.position = position;
     }
 
 
@@ -35,6 +42,7 @@ public class Enemy : MonoBehaviour
     {
         var position = transform.position;
         position.x = _mainCamera.transform.position.x + _xOffset;
+        
         transform.position = position;
     }
 }

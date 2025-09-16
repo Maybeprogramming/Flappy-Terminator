@@ -30,7 +30,7 @@ public class TestSpawner : ObjectPool<Enemy>
         while (enabled)
         {
             Spawn();
-            yield return new WaitForSeconds(10);
+            yield return new WaitForSeconds(3);
         }
     }
 }
