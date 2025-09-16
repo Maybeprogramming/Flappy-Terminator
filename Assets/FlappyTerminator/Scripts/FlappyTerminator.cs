@@ -4,32 +4,32 @@ using UnityEngine;
 [RequireComponent(typeof(FlappyMover))]
 [RequireComponent(typeof(ScoreCounter))]
 [RequireComponent(typeof(FlappyCollisionHandler))]
-public class FlappyHunter : MonoBehaviour
+public class FlappyTerminator : MonoBehaviour
 {
     private FlappyMover _flappyMover;
     private ScoreCounter _scoreCounter;
-    private FlappyCollisionHandler _handler;
+    private FlappyCollisionHandler _collisionHandler;
 
     public event Action GameOver;
 
     private void Awake()
     {
         _scoreCounter = GetComponent<ScoreCounter>();
-        _handler = GetComponent<FlappyCollisionHandler>();
+        _collisionHandler = GetComponent<FlappyCollisionHandler>();
         _flappyMover = GetComponent<FlappyMover>();
     }
 
     private void OnEnable()
     {
-        _handler.CollisionDetected += ProcessCollision;
+        _collisionHandler.CollisionDetected += OnProcessCollision;
     }
 
     private void OnDisable()
     {
-        _handler.CollisionDetected -= ProcessCollision;
+        _collisionHandler.CollisionDetected -= OnProcessCollision;
     }
 
-    private void ProcessCollision(IInteractable interactable)
+    private void OnProcessCollision(IInteractable interactable)
     {
         if (interactable is Pipe)
         {
