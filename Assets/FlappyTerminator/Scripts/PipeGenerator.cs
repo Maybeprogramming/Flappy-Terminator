@@ -6,7 +6,7 @@ public class PipeGenerator : ObjectPool<Pipe>
     [SerializeField] private float _delay;
     [SerializeField] private float _lowerBound;
     [SerializeField] private float _upperBound;
-    [SerializeField] private ObjectPool<Pipe> _pool;
+    //[SerializeField] private ObjectPool<Pipe> _pool;
 
     private void Start()
     {
@@ -29,7 +29,7 @@ public class PipeGenerator : ObjectPool<Pipe>
         float spawnPositionY = Random.Range(_upperBound, _lowerBound);
         Vector3 spawnPoint = new Vector3(transform.position.x, spawnPositionY, transform.position.z);
 
-        var pipe = _pool.GetObject();
+        var pipe = GetObject();
 
         pipe.gameObject.SetActive(true);
         pipe.transform.position = spawnPoint;

@@ -5,7 +5,6 @@ public class EnemySpawner : ObjectPool<Enemy>
 {
     [Header("Спавнер врагов:")]
     [SerializeField] private Transform _mainCamera;
-    [SerializeField] private ObjectPool<Enemy> _pool;
     [SerializeField] private int _maxEnemyCount = 3;
     [SerializeField] private float _delaySpawnSeconds;
 
@@ -13,8 +12,7 @@ public class EnemySpawner : ObjectPool<Enemy>
 
     private void Awake()
     {
-        _delaySpawn = new WaitForSeconds(_delaySpawnSeconds);
-        
+        _delaySpawn = new WaitForSeconds(_delaySpawnSeconds);        
     }
 
     private void Start()
@@ -24,8 +22,8 @@ public class EnemySpawner : ObjectPool<Enemy>
 
     private void Spawn()
     {
-        Enemy enemy = _pool.GetObject();
-        enemy.Init(_pool, _mainCamera);
+        var enemy = GetObject();
+        enemy.Init(this, _mainCamera);
         enemy.gameObject.SetActive(true);
     }
 
