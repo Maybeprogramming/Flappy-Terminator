@@ -1,20 +1,40 @@
 using UnityEngine;
+using UnityEngine.Pool;
 
-public class RocketSpawner : ObjectPool<Rocket>
+public class RocketSpawner : PoolEntities<Rocket>
 {
-    [Header("Rocket Spawner:")]
-    [SerializeField] private FlappyTerminator _flappyTerminator;
+    [Header("Спавнер ракет")]
+    [SerializeField] private FlappyTerminator _player;
     [SerializeField] private float _speedRocket;
+
+    private protected override void PoolInit()
+    {
+        Pool = new ObjectPool<Rocket>(() => Create(),
+                            (rocket) => PutEntity(rocket),
+                            (rocket) => rocket.gameObject.SetActive(false),
+                            (rocket) => Destroy(rocket),
+                            true,
+                            PoolDefaultCapacity,
+                            PoolMaxCapacity);
+    }
 
     private void Spawn()
     {
-        var rocket = GetObject();
-        rocket.Init(this, _speedRocket);
-        rocket.transform.position = _flappyTerminator.transform.position;
-        rocket.transform.rotation = _flappyTerminator.transform.rotation;
-        rocket.gameObject.SetActive(true);
+        var rocket = Pool.Get();
+        rocket.Init(_speedRocket);
+        rocket.transform.position = _player.transform.position;
+        rocket.transform.rotation = _player.transform.rotation;
+
+        rocket.FuelEnded += OnRocketEnd;
     }
 
+    private void OnRocketEnd(Rocket rocket)
+    {
+        rocket.FuelEnded -= OnRocketEnd;
+        Pool.Release(rocket);
+    }
+
+    //Перенести в инпут и сделать метод обработчик
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))

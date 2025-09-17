@@ -1,16 +1,18 @@
+using System;
 using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
     [SerializeField] private float _speed;
+    [SerializeField] private float moveDirection;
 
-    private ObjectPool<Laser> _pool;
+    public event Action<Laser> Released;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.TryGetComponent<Rocket>(out _) || collision.gameObject.TryGetComponent<FlappyTerminator>(out _))
         {
-            _pool.PutObject(this);
+            Released?.Invoke(this);
         }
     }
 
@@ -18,13 +20,9 @@ public class Laser : MonoBehaviour
     {
         Moving();
     }
+
     private void Moving()
     {
-        transform.position += (transform.right * Time.deltaTime * _speed) * -1f;
-    }
-
-    public void Init(ObjectPool<Laser> pool)
-    {
-        _pool = pool;
+        transform.position += (transform.right * Time.deltaTime * _speed) * moveDirection;
     }
 }

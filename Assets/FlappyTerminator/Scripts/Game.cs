@@ -6,10 +6,12 @@ public class Game : MonoBehaviour
     [SerializeField] private FlappyTerminator _flappyTerminator;
     [SerializeField] private StartScreen _startScreen;
     [SerializeField] private EndGameScreen _endGameScreen;
+
     [Header("Спавнеры")]
-    [SerializeField] private EnemySpawner _enemySpawner;
-    [SerializeField] private PipeSpawner _pipeSpawner;
     [SerializeField] private RocketSpawner _rocketSpawner;
+    [SerializeField] private EnemySpawner _enemySpawner;
+    [SerializeField] private LaserSpawner _laserSpawner;
+    [SerializeField] private PipeSpawner _pipeSpawner;
 
     private void OnEnable()
     {
@@ -52,8 +54,9 @@ public class Game : MonoBehaviour
     {
         Time.timeScale = 1;
         _flappyTerminator.Reset();
-        _rocketSpawner.Reset();
-        _enemySpawner.Reset();
+        _laserSpawner.Reset();
         _pipeSpawner.Reset();
+        _enemySpawner.Reset();
+        _rocketSpawner.Reset();
     }
 }

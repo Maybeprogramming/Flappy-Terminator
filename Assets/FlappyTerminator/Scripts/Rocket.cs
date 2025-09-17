@@ -1,22 +1,19 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class Rocket : MonoBehaviour
 {
-    [SerializeField] private ObjectPool<Rocket> _pool;
-    [SerializeField] private float _seconds;
-    private WaitForSeconds _delayTimer;
+    [SerializeField] private float _delayFuelEnd;
+    private WaitForSeconds _wait;
     private float _speed;
+
+    public event Action<Rocket> FuelEnded;
 
     private void OnEnable()
     {
-        _delayTimer = new WaitForSeconds(_seconds);
-        StartCoroutine(LifeCountdown());
-    }
-
-    private void OnDisable()
-    {
-        _pool.PutObject(this);
+        _wait = new WaitForSeconds(_delayFuelEnd);
+        StartCoroutine(FuelEnding());
     }
 
     private void Update()
@@ -29,15 +26,14 @@ public class Rocket : MonoBehaviour
         transform.position += transform.right * Time.deltaTime * _speed;
     }
 
-    public void Init(ObjectPool<Rocket> pool, float speed)
+    public void Init(float speed)
     {
-        _pool = pool;
         _speed = speed;
     }
 
-    private IEnumerator LifeCountdown()
+    private IEnumerator FuelEnding()
     {
-        yield return _delayTimer;
-        gameObject.SetActive(false);
+        yield return _wait;
+        FuelEnded?.Invoke(this);
     }
 }

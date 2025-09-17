@@ -1,14 +1,31 @@
-using System;
 using UnityEngine;
+using UnityEngine.Pool;
 
-public class LaserSpawner : ObjectPool<Laser>
+public class LaserSpawner : PoolEntities<Laser>
 {
-    internal void Spawn(Transform enemyTransform)
+    private protected override void PoolInit()
     {
-        var laser = GetObject();
+        Pool = new ObjectPool<Laser>(() => Create(),
+                            (laser) => PutEntity(laser),
+                            (laser) => laser.gameObject.SetActive(false),
+                            (laser) => Destroy(laser),
+                            true,
+                            PoolDefaultCapacity,
+                            PoolMaxCapacity);
+    }
+
+    public void Spawn(Transform enemyTransform)
+    {
+        var laser = Pool.Get();
         var laserPosition = enemyTransform.position;
         laser.transform.position = laserPosition;
-        laser.Init(this);
-        laser.gameObject.SetActive(true);
+
+        laser.Released += OnReleased;
+    }
+
+    private void OnReleased(Laser laser)
+    {
+        laser.Released -= OnReleased;
+        Pool.Release(laser);
     }
 }

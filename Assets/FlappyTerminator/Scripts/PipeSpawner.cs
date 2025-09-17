@@ -1,9 +1,10 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Pool;
 
-public class PipeSpawner : ObjectPool<Pipe>
+public class PipeSpawner : PoolEntities<Pipe>
 {
-    [Header("Pipe Spawner:")]
+    [Header("Спавнер препятствий")]
     [SerializeField] private float _delay;
     [SerializeField] private float _lowerBound;
     [SerializeField] private float _upperBound;
@@ -11,6 +12,17 @@ public class PipeSpawner : ObjectPool<Pipe>
     private void Start()
     {
         StartCoroutine(GeneratePipes());
+    }
+
+    private protected override void PoolInit()
+    {
+        Pool = new ObjectPool<Pipe>(() => Create(),
+                            (pipe) => PutEntity(pipe),
+                            (pipe) => pipe.gameObject.SetActive(false),
+                            (pipe) => Destroy(pipe),
+                            true,
+                            PoolDefaultCapacity,
+                            PoolMaxCapacity);
     }
 
     private IEnumerator GeneratePipes()
@@ -29,9 +41,15 @@ public class PipeSpawner : ObjectPool<Pipe>
         float spawnPositionY = Random.Range(_upperBound, _lowerBound);
         Vector3 spawnPoint = new Vector3(transform.position.x, spawnPositionY, transform.position.z);
 
-        var pipe = GetObject();
-
-        pipe.gameObject.SetActive(true);
+        var pipe = Pool.Get();
         pipe.transform.position = spawnPoint;
+
+        pipe.Released += OnReleased;
+    }
+
+    private void OnReleased(Pipe pipe)
+    {
+        pipe.Released -= OnReleased;
+        Pool.Release(pipe);
     }
 }

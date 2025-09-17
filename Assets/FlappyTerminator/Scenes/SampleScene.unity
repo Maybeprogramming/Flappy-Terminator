@@ -165,7 +165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41bf8e56f94559b4a87d5401651a9207, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pool: {fileID: 649466303}
 --- !u!50 &175920691
 Rigidbody2D:
   serializedVersion: 5
@@ -843,9 +842,10 @@ MonoBehaviour:
   _flappyTerminator: {fileID: 1216162874}
   _startScreen: {fileID: 1825567880}
   _endGameScreen: {fileID: 1483598709}
+  _rocketSpawner: {fileID: 7991251364478240210}
   _enemySpawner: {fileID: 1375749761}
+  _laserSpawner: {fileID: 4932945762318199312}
   _pipeSpawner: {fileID: 649466303}
-  _rocketSpawner: {fileID: 1677907864}
 --- !u!1 &649466300
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,8 +890,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ac3871be614a3c45a52648039f90b45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _container: {fileID: 1879254870}
   _prefab: {fileID: 5612805394839580342, guid: 531455f814096524f91e2834958aca6b, type: 3}
+  _container: {fileID: 1879254870}
+  <PoolDefaultCapacity>k__BackingField: 5
+  <PoolMaxCapacity>k__BackingField: 10
   _delay: 4
   _lowerBound: -2
   _upperBound: 2
@@ -1109,8 +1111,8 @@ GameObject:
   - component: {fileID: 1216162872}
   - component: {fileID: 1216162871}
   - component: {fileID: 1216162874}
-  m_Layer: 0
-  m_Name: FlappyTerminator
+  m_Layer: 9
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1248,7 +1250,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 2.11
 --- !u!114 &1216162871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1302,52 +1304,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2615f0e626b04bc43b99fc7d0074411c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1281960620
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1281960622}
-  - component: {fileID: 1281960623}
-  m_Layer: 0
-  m_Name: LaserConteiner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1281960622
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1281960620}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1281960623
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1281960620}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4be04e615a95d454c86490197db3d31a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _container: {fileID: 1281960622}
-  _prefab: {fileID: 6728543991092130193, guid: fec3d836f7ca20b418db2f2fa7c5f348, type: 3}
 --- !u!1 &1295379269
 GameObject:
   m_ObjectHideFlags: 0
@@ -1479,7 +1435,7 @@ GameObject:
   - component: {fileID: 1375749762}
   - component: {fileID: 1375749761}
   m_Layer: 0
-  m_Name: EnemyContainer
+  m_Name: EnemySpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1497,12 +1453,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7acabd6647e04a4eab70026f65eddc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _prefab: {fileID: 2894604179646082199, guid: 4c22e5ba3cd4d04449d96c3ca20db26f, type: 3}
   _container: {fileID: 1375749762}
-  _prefab: {fileID: 8120033180626802009, guid: 4c22e5ba3cd4d04449d96c3ca20db26f, type: 3}
+  <PoolDefaultCapacity>k__BackingField: 3
+  <PoolMaxCapacity>k__BackingField: 3
   _cameraPosition: {fileID: 519420032}
+  _laserSpawner: {fileID: 4932945762318199312}
   _delaySeconds: 1
   _maxEnemiesCount: 3
-  _laserSpawner: {fileID: 1281960623}
+  _lowerPointY: -2
+  _upperPointY: 2
 --- !u!4 &1375749762
 Transform:
   m_ObjectHideFlags: 0
@@ -1742,54 +1702,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _windowGroup: {fileID: 1483598706}
   _actionButton: {fileID: 1463748932}
---- !u!1 &1677907862
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1677907863}
-  - component: {fileID: 1677907864}
-  m_Layer: 0
-  m_Name: RocketContainer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1677907863
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1677907862}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.4532495, y: 0.58097553, z: 0.23763466}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1677907864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1677907862}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b41189eac7255f040ac92070be3e40a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _container: {fileID: 1677907863}
-  _prefab: {fileID: 5275718639096881099, guid: 33e48d6a66247574c8e5e96356d50335, type: 3}
-  _flappyTerminator: {fileID: 1216162874}
-  _speedRocket: 10
 --- !u!1 &1825567877
 GameObject:
   m_ObjectHideFlags: 0
@@ -2036,15 +1948,113 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1179969262644586193
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4680324201792431921}
+  - component: {fileID: 4932945762318199312}
+  m_Layer: 0
+  m_Name: LaserSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2545574407120061713
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5235195630102005525}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4680324201792431921
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179969262644586193}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.25, y: -3.43, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4932945762318199312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179969262644586193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be04e615a95d454c86490197db3d31a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 6728543991092130193, guid: fec3d836f7ca20b418db2f2fa7c5f348, type: 3}
+  _container: {fileID: 4680324201792431921}
+  <PoolDefaultCapacity>k__BackingField: 5
+  <PoolMaxCapacity>k__BackingField: 10
+--- !u!1 &5235195630102005525
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2545574407120061713}
+  - component: {fileID: 7991251364478240210}
+  m_Layer: 0
+  m_Name: RocketSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &7991251364478240210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5235195630102005525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b41189eac7255f040ac92070be3e40a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 5275718639096881099, guid: 33e48d6a66247574c8e5e96356d50335, type: 3}
+  _container: {fileID: 2545574407120061713}
+  <PoolDefaultCapacity>k__BackingField: 5
+  <PoolMaxCapacity>k__BackingField: 10
+  _player: {fileID: 1216162874}
+  _speedRocket: 10
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 1216162864}
+  - {fileID: 2545574407120061713}
   - {fileID: 384389505}
   - {fileID: 1879254870}
-  - {fileID: 1677907863}
   - {fileID: 1375749762}
-  - {fileID: 1281960622}
+  - {fileID: 4680324201792431921}
   - {fileID: 499193619}

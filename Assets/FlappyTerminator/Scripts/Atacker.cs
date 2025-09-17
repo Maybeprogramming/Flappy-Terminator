@@ -25,7 +25,7 @@ public class Atacker : MonoBehaviour
 
     private IEnumerator Firing()
     {
-        yield return _delayBetweånAttack;
+        yield return _waitBeforeAttack;
 
         while (enabled)
         {

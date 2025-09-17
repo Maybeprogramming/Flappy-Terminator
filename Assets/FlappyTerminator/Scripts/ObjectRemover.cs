@@ -2,13 +2,11 @@ using UnityEngine;
 
 public class ObjectRemover : MonoBehaviour
 {
-    [SerializeField] private ObjectPool<Pipe> _pool;
-
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.TryGetComponent(out Pipe pipe))
+        if (other.TryGetComponent<Pipe>(out Pipe pipe))
         {
-            _pool.PutObject(pipe);
+            pipe.InvokeReleased();
         }
     }
 }
