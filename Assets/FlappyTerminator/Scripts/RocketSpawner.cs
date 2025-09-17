@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class RocketSpawner : ObjectPool<Rocket>
 {
+    [Header("Rocket Spawner:")]
     [SerializeField] private FlappyTerminator _flappyTerminator;
-    //[SerializeField] private ObjectPool<Rocket> _pool;
     [SerializeField] private float _speedRocket;
 
     private void Spawn()

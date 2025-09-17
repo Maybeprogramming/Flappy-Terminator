@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class PipeGenerator : ObjectPool<Pipe>
 {
+    [Header("Pipe Spawner:")]
     [SerializeField] private float _delay;
     [SerializeField] private float _lowerBound;
     [SerializeField] private float _upperBound;
-    //[SerializeField] private ObjectPool<Pipe> _pool;
 
     private void Start()
     {
