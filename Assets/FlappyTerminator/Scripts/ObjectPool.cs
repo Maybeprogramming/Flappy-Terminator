@@ -36,7 +36,6 @@ public class ObjectPool<T> : MonoBehaviour where T : MonoBehaviour
         }
 
         return _pool.Dequeue();
-        //return _listEntityPool.Where(e => e.isActiveAndEnabled == false).FirstOrDefault();
     }
 
     public void PutObject(T entity)

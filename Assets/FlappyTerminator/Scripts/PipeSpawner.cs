@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class PipeGenerator : ObjectPool<Pipe>
+public class PipeSpawner : ObjectPool<Pipe>
 {
     [Header("Pipe Spawner:")]
     [SerializeField] private float _delay;

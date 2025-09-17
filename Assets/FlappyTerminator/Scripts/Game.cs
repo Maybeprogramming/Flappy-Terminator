@@ -4,9 +4,12 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
     [SerializeField] private FlappyTerminator _flappyTerminator;
-    [SerializeField] private PipeGenerator _pipeGenerator;
     [SerializeField] private StartScreen _startScreen;
     [SerializeField] private EndGameScreen _endGameScreen;
+    [Header("Спавнеры")]
+    [SerializeField] private EnemySpawner _enemySpawner;
+    [SerializeField] private PipeSpawner _pipeSpawner;
+    [SerializeField] private RocketSpawner _rocketSpawner;
 
     private void OnEnable()
     {
@@ -49,5 +52,8 @@ public class Game : MonoBehaviour
     {
         Time.timeScale = 1;
         _flappyTerminator.Reset();
+        _rocketSpawner.Reset();
+        _enemySpawner.Reset();
+        _pipeSpawner.Reset();
     }
 }

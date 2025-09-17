@@ -8,6 +8,7 @@ public class EnemySpawner : ObjectPool<Enemy>
     [SerializeField] private Transform _cameraPosition;
     [SerializeField] private float _delaySeconds;
     [SerializeField] private int _maxEnemiesCount;
+    [SerializeField] private LaserSpawner _laserSpawner;
 
     private WaitForSeconds _wait;
 
@@ -24,6 +25,10 @@ public class EnemySpawner : ObjectPool<Enemy>
         enemyPosition.y = _cameraPosition.position.y + Random.Range(-2, 2);
         enemy.transform.position = enemyPosition;
         enemy.Init(this, _cameraPosition);
+
+        var enemyAttacker = enemy.GetComponent<Atacker>();
+        enemyAttacker.Init(_laserSpawner);
+
         enemy.gameObject.SetActive(true);
     }
 
@@ -34,7 +39,7 @@ public class EnemySpawner : ObjectPool<Enemy>
             if (ActiveCount < _maxEnemiesCount)
             {
                 Spawn();
-                Debug.Log($"В пуле: [" + Count + "] Активных: [" + ActiveCount + "]");
+                //Debug.Log($"В пуле: [" + Count + "] Активных: [" + ActiveCount + "]");
             }
 
             yield return _wait;
