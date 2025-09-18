@@ -13,8 +13,11 @@ public class Atacker : MonoBehaviour
     private void Start()
     {
         _waitBetweånAttak = new WaitForSeconds(_delayBetweånAttack);
-        _waitBeforeAttack = new WaitForSeconds(_delayBeforeAttack);
+        _waitBeforeAttack = new WaitForSeconds(_delayBeforeAttack);        
+    }
 
+    private void OnEnable()
+    {
         StartCoroutine(Firing());
     }
 

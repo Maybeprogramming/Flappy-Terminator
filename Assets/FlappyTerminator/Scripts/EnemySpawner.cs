@@ -11,6 +11,7 @@ public class EnemySpawner : PoolEntities<Enemy>
     [SerializeField] private int _maxEnemiesCount;
     [SerializeField] private int _lowerPointY;
     [SerializeField] private int _upperPointY;
+    [SerializeField] private float _xOffset;
 
     private WaitForSeconds _wait;
 
@@ -42,7 +43,7 @@ public class EnemySpawner : PoolEntities<Enemy>
 
     private void InitEnemyPosition(Enemy enemy)
     {
-        var newEnemyPosition = new Vector3(_cameraPosition.transform.position.x, 0f, _cameraPosition.transform.position.y);
+        var newEnemyPosition = new Vector3(_cameraPosition.transform.position.x + _xOffset, 0f, _cameraPosition.transform.position.y);
         newEnemyPosition.y = _cameraPosition.position.y + Random.Range(_lowerPointY, _upperPointY);
         enemy.transform.position = newEnemyPosition;
     }

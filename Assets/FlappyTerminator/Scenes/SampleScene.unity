@@ -842,10 +842,10 @@ MonoBehaviour:
   _flappyTerminator: {fileID: 1216162874}
   _startScreen: {fileID: 1825567880}
   _endGameScreen: {fileID: 1483598709}
-  _rocketSpawner: {fileID: 7991251364478240210}
-  _enemySpawner: {fileID: 1375749761}
-  _laserSpawner: {fileID: 4932945762318199312}
-  _pipeSpawner: {fileID: 649466303}
+  _rocketSpawner: {fileID: 0}
+  _enemySpawner: {fileID: 0}
+  _laserSpawner: {fileID: 0}
+  _pipeSpawner: {fileID: 0}
 --- !u!1 &649466300
 GameObject:
   m_ObjectHideFlags: 0
@@ -1461,8 +1461,9 @@ MonoBehaviour:
   _laserSpawner: {fileID: 4932945762318199312}
   _delaySeconds: 1
   _maxEnemiesCount: 3
-  _lowerPointY: -2
-  _upperPointY: 2
+  _lowerPointY: -3
+  _upperPointY: 3
+  _xOffset: 4
 --- !u!4 &1375749762
 Transform:
   m_ObjectHideFlags: 0

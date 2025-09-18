@@ -1,14 +1,14 @@
 using System;
 using UnityEngine;
 
-public class Laser : MonoBehaviour
+public class Laser : MonoBehaviour, IInteractable
 {
     [SerializeField] private float _speed;
     [SerializeField] private float moveDirection;
 
     public event Action<Laser> Released;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent<Rocket>(out _) || collision.gameObject.TryGetComponent<FlappyTerminator>(out _))
         {

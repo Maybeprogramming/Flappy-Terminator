@@ -31,11 +31,10 @@ public class FlappyTerminator : MonoBehaviour
 
     private void OnProcessCollision(IInteractable interactable)
     {
-        if (interactable is Pipe)
+        if (interactable is Pipe || interactable is Laser)
         {
             GameOver?.Invoke();
         }
-
         else if(interactable is ScoreZone) 
         {
             _scoreCounter.Add();

@@ -54,9 +54,9 @@ public class Game : MonoBehaviour
     {
         Time.timeScale = 1;
         _flappyTerminator.Reset();
-        _laserSpawner.Reset();
-        _pipeSpawner.Reset();
-        _enemySpawner.Reset();
-        _rocketSpawner.Reset();
+        //_laserSpawner.Reset();
+        //_pipeSpawner.Reset();
+        //_enemySpawner.Reset();
+        //_rocketSpawner.Reset();
     }
 }
