@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -6,6 +7,8 @@ public class RocketSpawner : PoolEntities<Rocket>
     [Header("Спавнер ракет")]
     [SerializeField] private FlappyTerminator _player;
     [SerializeField] private float _speedRocket;
+
+    public event Action RocketSpawned;
 
     private protected override void PoolInit()
     {
@@ -24,8 +27,9 @@ public class RocketSpawner : PoolEntities<Rocket>
         rocket.Init(_speedRocket);
         rocket.transform.position = _player.transform.position;
         rocket.transform.rotation = _player.transform.rotation;
-
         rocket.FuelEnded += OnRocketEnd;
+
+        RocketSpawned?.Invoke();
     }
 
     private void OnRocketEnd(Rocket rocket)

@@ -8,14 +8,6 @@ public class Enemy : MonoBehaviour
 
     public event Action<Enemy> Dead;
 
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.transform.TryGetComponent<Rocket>(out _))
-    //    {
-    //        Dead?.Invoke(this);
-    //    }
-    //}
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.TryGetComponent<Rocket>(out _))
@@ -29,6 +21,8 @@ public class Enemy : MonoBehaviour
         _cameraPosition = cameraPosition;
         var attacker = GetComponent<Atacker>();
         attacker.Init(laserSpawner);
+        var soundFXPlayer = GetComponent<EnemySoundFXPlayer>();
+        soundFXPlayer.Init(laserSpawner);
     }
 
 
