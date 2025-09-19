@@ -1,25 +1,14 @@
 using System;
 using UnityEngine;
-using UnityEngine.Pool;
 
-public class RocketSpawner : PoolEntities<Rocket>
+public class RocketSpawner : PoolEntities<Rocket>, ISoundPlayable
 {
     [Header("Спавнер ракет")]
     [SerializeField] private FlappyTerminator _player;
     [SerializeField] private float _speedRocket;
 
     public event Action RocketSpawned;
-
-    private protected override void PoolInit()
-    {
-        Pool = new ObjectPool<Rocket>(() => Create(),
-                            (rocket) => PutEntity(rocket),
-                            (rocket) => rocket.gameObject.SetActive(false),
-                            (rocket) => Destroy(rocket),
-                            true,
-                            PoolDefaultCapacity,
-                            PoolMaxCapacity);
-    }
+    public event Action SoundPlayed;
 
     private void Spawn()
     {
@@ -30,6 +19,7 @@ public class RocketSpawner : PoolEntities<Rocket>
         rocket.FuelEnded += OnRocketEnd;
 
         RocketSpawned?.Invoke();
+        SoundPlayed?.Invoke();
     }
 
     private void OnRocketEnd(Rocket rocket)
@@ -38,12 +28,6 @@ public class RocketSpawner : PoolEntities<Rocket>
         Pool.Release(rocket);
     }
 
-    //Перенести в инпут и сделать метод обработчик
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Spawn();
-        }
-    }
+    public void OnAttackHandler() =>
+        Spawn();
 }

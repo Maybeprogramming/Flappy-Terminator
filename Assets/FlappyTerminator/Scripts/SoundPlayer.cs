@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -5,40 +6,38 @@ using UnityEngine;
 public class SoundPlayer : MonoBehaviour
 {
     [Header("Звуки")]
-    [SerializeField] private AudioSource _audioSource;
-    [SerializeField] private AudioClip _gameoverFX;
-    [SerializeField] private AudioClip _rocketFX;
-    [SerializeField] private AudioClip _laserFX;
-    [SerializeField] private AudioClip _explouseFX;
+    [SerializeField] private AudioClip _gameoverSound;
+    [SerializeField] private AudioClip _runRocketSound;
+    [SerializeField] private AudioClip _runLaserSound;
+    [SerializeField] private AudioClip explouseSound;
     [SerializeField] private float _delayBeforePlay;
 
-    [Header("Спавнеры")]
-    [SerializeField] private RocketSpawner _rocketSpawner;
-
+    private AudioSource _audioSource;
     private WaitForSeconds _wait;
 
-    private void Awake()
-    {
+    private void Awake() => 
         _audioSource = GetComponent<AudioSource>();
-    }
 
-    private void OnEnable()
-    {
-        _rocketSpawner.RocketSpawned += OnRocketSpawned;
-    }
-    private void OnDisable()
-    {
-        _rocketSpawner.RocketSpawned -= OnRocketSpawned;
-    }
+    public void PlayOneShot(Sounds clip) => 
+        StartCoroutine(SoundPlaying(clip));
 
-    private void OnRocketSpawned()
-    {
-        StartCoroutine(SoundPlaying(_rocketFX));
-    }
-
-    private IEnumerator SoundPlaying(AudioClip audioClip)
+    private IEnumerator SoundPlaying(Sounds clip)
     {
         yield return _wait;
-        _audioSource.PlayOneShot(audioClip);
+        _audioSource.PlayOneShot(GetClip(clip));
+    }
+
+    private AudioClip GetClip(Sounds clip)
+    {
+        AudioClip audioClip = clip switch
+        {
+            Sounds.GameOver => _gameoverSound,
+            Sounds.FireRocket => _runRocketSound,
+            Sounds.FireLaser => _runLaserSound,
+            Sounds.Explouse => explouseSound,
+            _ => throw new Exception($"{nameof(clip)} ошибка передачи значения параметра в функцию {nameof(GetClip)}")
+        };
+
+        return audioClip;
     }
 }

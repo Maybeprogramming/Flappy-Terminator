@@ -1,8 +1,7 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(FlappyTerminator))]
-public class FlappyCollisionHandler : MonoBehaviour
+public class CollisionHandler : MonoBehaviour
 {
     public event Action<IInteractable> CollisionDetected;
 

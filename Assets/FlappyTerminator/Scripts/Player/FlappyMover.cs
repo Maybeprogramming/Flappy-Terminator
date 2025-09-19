@@ -25,15 +25,14 @@ public class FlappyMover : MonoBehaviour
         Reset();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _rigidbody2D.linearVelocity = new Vector2(_speed, _tapForce);
-            transform.rotation = _maxRotation;
-        }
-
+    private void Update() => 
         transform.rotation = Quaternion.Lerp(transform.rotation, _minRotation, _rotationSpeed * Time.deltaTime);
+
+
+    public void OnJumpHandler()
+    {
+        _rigidbody2D.linearVelocity = new Vector2(_speed, _tapForce);
+        transform.rotation = _maxRotation;
     }
 
     public void Reset()

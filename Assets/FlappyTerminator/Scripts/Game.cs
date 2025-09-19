@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Game : MonoBehaviour
@@ -6,12 +5,8 @@ public class Game : MonoBehaviour
     [SerializeField] private FlappyTerminator _flappyTerminator;
     [SerializeField] private StartScreen _startScreen;
     [SerializeField] private EndGameScreen _endGameScreen;
-
-    [Header("Спавнеры")]
-    [SerializeField] private RocketSpawner _rocketSpawner;
     [SerializeField] private EnemySpawner _enemySpawner;
-    [SerializeField] private LaserSpawner _laserSpawner;
-    [SerializeField] private PipeSpawner _pipeSpawner;
+    [SerializeField] private InputController _inputController;
 
     private void OnEnable()
     {
@@ -52,11 +47,10 @@ public class Game : MonoBehaviour
 
     private void StartGame()
     {
+        _enemySpawner.Reset();
         Time.timeScale = 1;
         _flappyTerminator.Reset();
-        //_laserSpawner.Reset();
-        //_pipeSpawner.Reset();
-        //_enemySpawner.Reset();
-        //_rocketSpawner.Reset();
+        _enemySpawner.StartSpawning();
+        _inputController.Enable();
     }
 }

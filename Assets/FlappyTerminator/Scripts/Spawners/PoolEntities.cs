@@ -1,53 +1,47 @@
-using System;
 using UnityEngine;
 using UnityEngine.Pool;
 
 public class PoolEntities <T>: MonoBehaviour where T : MonoBehaviour
 {
-    [Header("Базовые настройки")]
     [SerializeField] private T _prefab;
     [SerializeField] private Transform _container;
-
+    [SerializeField] private bool _collectionCheck;
+    [SerializeField] private int _poolDefaultCapacity;
+    [SerializeField] private int _poolMaxCapacity;
+    
     private protected ObjectPool<T> Pool;
-
-    public event Action<int, int, int> Informing;
-
-    [field: SerializeField] public int PoolDefaultCapacity { get; private set; }
-    [field: SerializeField] public int PoolMaxCapacity { get; private set; }
-
-    public int SpawnedEntities { get; private set; }
-    public int CreatedEntities => Pool.CountAll;
-    public int ActiveEntities => Pool.CountActive;
 
     private void Awake()
     {
-        SpawnedEntities = 0;
-        PoolInit();
+        Initilize();
     }
 
-    private void Start() =>
-        DoInforming(SpawnedEntities, CreatedEntities, ActiveEntities);
+    public T GetObject() => 
+        Pool.Get();
 
-    public void Reset()
+    public void Release(T entity) =>
+        entity.gameObject.SetActive(false);
+
+    public void Initilize()
     {
-        Pool.Clear();
+        Pool = new ObjectPool<T>(() => Create(),
+                    (entity) => Get(entity),
+                    (entity) => Release(entity),
+                    (entity) => Destroy(entity),
+                    _collectionCheck,
+                    _poolDefaultCapacity,
+                    _poolMaxCapacity);
     }
 
-    private protected virtual void PoolInit() { }
-
-    private protected T Create()
+    private T Create()
     {
         T instance = Instantiate(_prefab, Vector3.zero, Quaternion.identity);
         instance.transform.parent = _container.transform;
         return instance;
     }
 
-    private protected void PutEntity(T entity)
+    private protected void Get(T entity)
     {
         entity.gameObject.SetActive(true);
-        SpawnedEntities++;
     }
-
-    private void DoInforming(int spawenedEntities, int createdEntities, int activeEntities) =>
-    Informing?.Invoke(spawenedEntities, createdEntities, activeEntities);
 }

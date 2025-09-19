@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Pool;
 
 public class PipeSpawner : PoolEntities<Pipe>
 {
@@ -14,22 +13,11 @@ public class PipeSpawner : PoolEntities<Pipe>
         StartCoroutine(GeneratePipes());
     }
 
-    private protected override void PoolInit()
-    {
-        Pool = new ObjectPool<Pipe>(() => Create(),
-                            (pipe) => PutEntity(pipe),
-                            (pipe) => pipe.gameObject.SetActive(false),
-                            (pipe) => Destroy(pipe),
-                            true,
-                            PoolDefaultCapacity,
-                            PoolMaxCapacity);
-    }
-
     private IEnumerator GeneratePipes()
     {
         var wait = new WaitForSeconds(_delay);
 
-        while (enabled) 
+        while (enabled)
         {
             Spawn();
             yield return wait;
@@ -44,12 +32,12 @@ public class PipeSpawner : PoolEntities<Pipe>
         var pipe = Pool.Get();
         pipe.transform.position = spawnPoint;
 
-        pipe.Released += OnReleased;
+        pipe.Released += Released;
     }
 
-    private void OnReleased(Pipe pipe)
+    private void Released(Pipe pipe)
     {
-        pipe.Released -= OnReleased;
+        pipe.Released -= Released;
         Pool.Release(pipe);
     }
 }

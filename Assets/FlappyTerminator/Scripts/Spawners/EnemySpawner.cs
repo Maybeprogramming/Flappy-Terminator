@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Pool;
 
 public class EnemySpawner : PoolEntities<Enemy>
 {
@@ -18,18 +17,6 @@ public class EnemySpawner : PoolEntities<Enemy>
     private void Start()
     {
         _wait = new WaitForSeconds(_delaySeconds);
-        StartCoroutine(EnemySpawning());
-    }
-
-    private protected override void PoolInit()
-    {
-        Pool = new ObjectPool<Enemy>(() => Create(),
-                            (enemy) => PutEntity(enemy),
-                            (enemy) => enemy.gameObject.SetActive(false),
-                            (enemy) => Destroy(enemy),
-                            true,
-                            PoolDefaultCapacity,
-                            PoolMaxCapacity);
     }
 
     private void Spawn()
@@ -38,7 +25,7 @@ public class EnemySpawner : PoolEntities<Enemy>
         InitEnemyPosition(enemy);
         enemy.Init(_cameraPosition, _laserSpawner);
 
-        enemy.Dead += OnDead;
+        enemy.Dead += OnReleased;
     }
 
     private void InitEnemyPosition(Enemy enemy)
@@ -48,9 +35,9 @@ public class EnemySpawner : PoolEntities<Enemy>
         enemy.transform.position = newEnemyPosition;
     }
 
-    private void OnDead(Enemy enemy)
+    private void OnReleased(Enemy enemy)
     {
-        enemy.Dead -= OnDead;
+        enemy.Dead -= OnReleased;
         Pool.Release(enemy);
     }
 
@@ -65,5 +52,15 @@ public class EnemySpawner : PoolEntities<Enemy>
 
             yield return _wait;
         }
+    }
+
+    internal void StartSpawning()
+    {
+        StartCoroutine(EnemySpawning());
+    }
+
+    internal void Reset()
+    {
+        Pool.Dispose();
     }
 }
