@@ -10,6 +10,8 @@ public class RocketSpawner : PoolEntities<Rocket>, ISoundPlayable
     public event Action RocketSpawned;
     public event Action SoundPlayed;
 
+    public Vector3 Position => transform.position;
+
     private void Spawn()
     {
         var rocket = Pool.Get();
@@ -24,6 +26,7 @@ public class RocketSpawner : PoolEntities<Rocket>, ISoundPlayable
 
     private void OnRocketEnd(Rocket rocket)
     {
+        rocket.transform.position = Position;
         rocket.FuelEnded -= OnRocketEnd;
         Pool.Release(rocket);
     }

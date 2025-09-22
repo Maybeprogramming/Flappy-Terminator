@@ -1,3 +1,4 @@
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,8 +10,6 @@ public class Bootstraper : MonoBehaviour
     [Header("Input игрока")]
     [SerializeField] private InputController _inputController;
     [SerializeField] private FlappyMover _flappyMover;
-    [SerializeField] private RocketSpawner _rocketSpawner;
-    [SerializeField] private LaserSpawner _laserSpawner;
 
     [Header("Звуковые эффекты")]
     [SerializeField] private SoundPlayer _soundPlayer;
@@ -18,16 +17,40 @@ public class Bootstraper : MonoBehaviour
     [SerializeField] private SoundEffector _enemySoundEffector;
     [SerializeField] private SoundEffector _gameoverSoundEffector;
 
+    [Header("Спавнеры")]
+    [SerializeField] private RocketSpawner _rocketSpawner;
+    [SerializeField] private LaserSpawner _laserSpawner;
+    [SerializeField] private EnemySpawner _enemySpawner;
+    [SerializeField] private PipeSpawner _pipeSpawner;
+
+    [Header("Игра")]
+    [SerializeField] private Game _game;
+
     private void Start()
     {
-        InitInputController();
         InitSoundPlayer();
     }
 
-    private void InitInputController()
+    private void OnEnable()
     {
         _inputController.Jumped += _flappyMover.OnJumpHandler;
         _inputController.Attacked += _rocketSpawner.OnAttackHandler;
+        //_game.Started += OnSpawnersReseted;
+    }
+
+    private void OnDisable()
+    {
+        _inputController.Jumped -= _flappyMover.OnJumpHandler;
+        _inputController.Attacked -= _rocketSpawner.OnAttackHandler;
+        //_game.Started -= OnSpawnersReseted;
+    }
+
+    private void OnSpawnersReseted()
+    {
+        _rocketSpawner.Clear();
+        _laserSpawner.Clear();
+        _enemySpawner.Clear();
+        _pipeSpawner.Clear();
     }
 
     private void InitSoundPlayer()

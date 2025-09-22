@@ -14,6 +14,8 @@ public class EnemySpawner : PoolEntities<Enemy>
 
     private WaitForSeconds _wait;
 
+    public Vector3 Position => transform.position;
+
     private void Start()
     {
         _wait = new WaitForSeconds(_delaySeconds);
@@ -22,6 +24,7 @@ public class EnemySpawner : PoolEntities<Enemy>
     private void Spawn()
     {
         var enemy = Pool.Get();
+        Debug.Log($"SPAWN {Pool.CountActive} | {_maxEnemiesCount}");
         InitEnemyPosition(enemy);
         enemy.Init(_cameraPosition, _laserSpawner);
 
@@ -37,6 +40,7 @@ public class EnemySpawner : PoolEntities<Enemy>
 
     private void OnReleased(Enemy enemy)
     {
+        enemy.transform.position = Position;
         enemy.Dead -= OnReleased;
         Pool.Release(enemy);
     }
@@ -47,6 +51,7 @@ public class EnemySpawner : PoolEntities<Enemy>
         {
             if (Pool.CountActive < _maxEnemiesCount)
             {
+                Debug.Log($"{Pool.CountActive} | {_maxEnemiesCount}");
                 Spawn();
             }
 

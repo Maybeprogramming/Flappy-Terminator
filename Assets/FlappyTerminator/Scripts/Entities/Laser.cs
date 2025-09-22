@@ -10,7 +10,7 @@ public class Laser : MonoBehaviour, IInteractable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent<Rocket>(out _) || collision.gameObject.TryGetComponent<FlappyTerminator>(out _))
+        if (collision.gameObject.TryGetComponent<Rocket>(out _) || collision.gameObject.TryGetComponent<FlappyTerminator>(out _) || collision.gameObject.TryGetComponent<ObjectRemover>(out _))
         {
             Released?.Invoke(this);
         }

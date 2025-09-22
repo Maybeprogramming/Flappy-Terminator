@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Game : MonoBehaviour
@@ -7,6 +8,8 @@ public class Game : MonoBehaviour
     [SerializeField] private EndGameScreen _endGameScreen;
     [SerializeField] private EnemySpawner _enemySpawner;
     [SerializeField] private InputController _inputController;
+
+    public event Action Started;
 
     private void OnEnable()
     {
@@ -32,6 +35,7 @@ public class Game : MonoBehaviour
     {
         Time.timeScale = 0;
         _endGameScreen.Open();
+        _inputController.Disable();
     }
 
     private void OnRestartButtonClick()
@@ -52,5 +56,7 @@ public class Game : MonoBehaviour
         _flappyTerminator.Reset();
         _enemySpawner.StartSpawning();
         _inputController.Enable();
+
+        Started?.Invoke();
     }
 }

@@ -11,7 +11,6 @@ public class InputController : MonoBehaviour
     private void Awake()
     {
         _inputSystem = new InputSystem();
-        //Enable();
     }
 
     private void OnEnable()

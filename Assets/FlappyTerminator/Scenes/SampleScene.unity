@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 175920691}
   - component: {fileID: 175920690}
   m_Layer: 0
-  m_Name: PipeRemover
+  m_Name: ObjectRemover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,7 +147,7 @@ Transform:
   m_GameObject: {fileID: 175920688}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.53, y: 0.74, z: 10.066043}
+  m_LocalPosition: {x: -5, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -226,7 +226,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.595871}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -236,7 +236,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 8.13}
+  m_Size: {x: 1, y: 12.156149}
   m_EdgeRadius: 0
 --- !u!1 &251859733
 GameObject:
@@ -314,7 +314,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: -1
   m_Sprite: {fileID: 2695397407002535339, guid: f1748a8a620402748b1cf0c29ceb93e3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -435,7 +435,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: -1
   m_Sprite: {fileID: 2695397407002535339, guid: f1748a8a620402748b1cf0c29ceb93e3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -809,6 +809,9 @@ Transform:
   m_Children:
   - {fileID: 175920689}
   - {fileID: 649466301}
+  - {fileID: 2545574407120061713}
+  - {fileID: 4680324201792431921}
+  - {fileID: 1375749762}
   - {fileID: 346085003}
   - {fileID: 1057060460}
   - {fileID: 857069837}
@@ -894,8 +897,6 @@ MonoBehaviour:
   _collectionCheck: 1
   _poolDefaultCapacity: 3
   _poolMaxCapacity: 10
-  _prefab: {fileID: 5612805394839580342, guid: 531455f814096524f91e2834958aca6b, type: 3}
-  _container: {fileID: 1879254870}
   _delay: 4
   _lowerBound: -2
   _upperBound: 2
@@ -946,12 +947,15 @@ MonoBehaviour:
   _player: {fileID: 1216162874}
   _inputController: {fileID: 2094654190}
   _flappyMover: {fileID: 1216162873}
-  _rocketSpawner: {fileID: 7991251364478240210}
-  _laserSpawner: {fileID: 4932945762318199312}
   _soundPlayer: {fileID: 774167877}
   _playerSoundEffector: {fileID: 1216162875}
   _enemySoundEffector: {fileID: 4932945762318199313}
   _gameoverSoundEffector: {fileID: 857069838}
+  _rocketSpawner: {fileID: 7991251364478240210}
+  _laserSpawner: {fileID: 4932945762318199312}
+  _enemySpawner: {fileID: 1375749761}
+  _pipeSpawner: {fileID: 649466303}
+  _game: {fileID: 519420034}
 --- !u!1 &774167876
 GameObject:
   m_ObjectHideFlags: 0
@@ -1174,7 +1178,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_Sprite: {fileID: -1955448553306655712, guid: 0abd945036a71c7439230688bf9067b0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1308,7 +1312,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_Sprite: {fileID: -1955448553306655712, guid: 0abd945036a71c7439230688bf9067b0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1359,7 +1363,7 @@ GameObject:
   - component: {fileID: 1216162871}
   - component: {fileID: 1216162874}
   - component: {fileID: 1216162875}
-  m_Layer: 9
+  m_Layer: 4
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1409,7 +1413,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -2089796808522226102, guid: 4a703306942dd27498fb482bda23b8cc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1431,7 +1435,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1.3333334}
+  m_LocalScale: {x: 0.195, y: 0.195, z: 1.3}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -1717,8 +1721,8 @@ MonoBehaviour:
   _prefab: {fileID: 2894604179646082199, guid: 4c22e5ba3cd4d04449d96c3ca20db26f, type: 3}
   _container: {fileID: 1375749762}
   _collectionCheck: 1
-  _poolDefaultCapacity: 3
-  _poolMaxCapacity: 10
+  _poolDefaultCapacity: 2
+  _poolMaxCapacity: 5
   _cameraPosition: {fileID: 519420032}
   _laserSpawner: {fileID: 4932945762318199312}
   _delaySeconds: 1
@@ -1735,11 +1739,11 @@ Transform:
   m_GameObject: {fileID: 1375749760}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.4532495, y: 0.58097553, z: 0.23763466}
+  m_LocalPosition: {x: 6, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 519420032}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1463748930
 GameObject:
@@ -2204,8 +2208,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1879254869}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.4532495, y: 0.58097553, z: 0.23763466}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 8, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2282,11 +2286,11 @@ Transform:
   m_GameObject: {fileID: 5235195630102005525}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -4, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 519420032}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4680324201792431921
 Transform:
@@ -2297,11 +2301,11 @@ Transform:
   m_GameObject: {fileID: 1179969262644586193}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.25, y: -3.43, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 4, y: 0, z: 10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 519420032}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4932945762318199312
 MonoBehaviour:
@@ -2365,8 +2369,8 @@ MonoBehaviour:
   _prefab: {fileID: 5275718639096881099, guid: 33e48d6a66247574c8e5e96356d50335, type: 3}
   _container: {fileID: 2545574407120061713}
   _collectionCheck: 1
-  _poolDefaultCapacity: 3
-  _poolMaxCapacity: 10
+  _poolDefaultCapacity: 1
+  _poolMaxCapacity: 2
   _player: {fileID: 1216162874}
   _speedRocket: 10
 --- !u!1660057539 &9223372036854775807
@@ -2376,11 +2380,8 @@ SceneRoots:
   - {fileID: 676420967}
   - {fileID: 519420032}
   - {fileID: 1216162864}
-  - {fileID: 2545574407120061713}
-  - {fileID: 384389505}
   - {fileID: 1879254870}
-  - {fileID: 1375749762}
-  - {fileID: 4680324201792431921}
+  - {fileID: 384389505}
   - {fileID: 499193619}
   - {fileID: 774167878}
   - {fileID: 2094654191}

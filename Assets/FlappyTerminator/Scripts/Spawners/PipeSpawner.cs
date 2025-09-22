@@ -8,6 +8,8 @@ public class PipeSpawner : PoolEntities<Pipe>
     [SerializeField] private float _lowerBound;
     [SerializeField] private float _upperBound;
 
+    public Vector3 Position => transform.position;
+
     private void Start()
     {
         StartCoroutine(GeneratePipes());
@@ -37,6 +39,7 @@ public class PipeSpawner : PoolEntities<Pipe>
 
     private void Released(Pipe pipe)
     {
+        pipe.transform.position = Position;
         pipe.Released -= Released;
         Pool.Release(pipe);
     }

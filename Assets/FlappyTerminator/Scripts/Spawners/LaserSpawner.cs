@@ -6,11 +6,13 @@ public class LaserSpawner : PoolEntities<Laser>, ISoundPlayable
     public event Action LaserSpawned;
     public event Action SoundPlayed;
 
+    public Vector3 Position => transform.position;
+
     public void Spawn(Transform enemyTransform)
     {
         var laser = Pool.Get();
-        var laserPosition = enemyTransform.position;
-        laser.transform.position = laserPosition;
+        var laserStartPosition = enemyTransform.position;
+        laser.transform.position = laserStartPosition;
         
         laser.Released += OnReleased;
 
@@ -20,6 +22,7 @@ public class LaserSpawner : PoolEntities<Laser>, ISoundPlayable
 
     private void OnReleased(Laser laser)
     {
+        laser.transform.position = Position;
         laser.Released -= OnReleased;
         Pool.Release(laser);
     }

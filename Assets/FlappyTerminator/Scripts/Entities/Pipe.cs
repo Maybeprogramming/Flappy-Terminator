@@ -5,7 +5,7 @@ public class Pipe : MonoBehaviour, IInteractable
 {
     public event Action<Pipe> Released;
 
-    internal void InvokeReleased()
+    public void Interacted()
     {
         Released?.Invoke(this);
     }
