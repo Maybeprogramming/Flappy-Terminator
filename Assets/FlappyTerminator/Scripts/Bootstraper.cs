@@ -35,14 +35,14 @@ public class Bootstraper : MonoBehaviour
     {
         _inputController.Jumped += _flappyMover.OnJumpHandler;
         _inputController.Attacked += _rocketSpawner.OnAttackHandler;
-        //_game.Started += OnSpawnersReseted;
+        _game.Started += OnSpawnersReseted;
     }
 
     private void OnDisable()
     {
         _inputController.Jumped -= _flappyMover.OnJumpHandler;
         _inputController.Attacked -= _rocketSpawner.OnAttackHandler;
-        //_game.Started -= OnSpawnersReseted;
+        _game.Started -= OnSpawnersReseted;
     }
 
     private void OnSpawnersReseted()

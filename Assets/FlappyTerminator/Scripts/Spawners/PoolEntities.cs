@@ -11,43 +11,39 @@ public class PoolEntities<T> : MonoBehaviour where T : MonoBehaviour
 
     private protected ObjectPool<T> Pool;
 
-    private void Awake()
-    {
+    private void Awake() => 
         Init();
-    }
 
-    public void Clear() =>
-        Pool.Clear();
-
-    public T GetObject() =>
-        Pool.Get();
-
-    public void Release(T entity) =>
-        entity.gameObject.SetActive(false);
-
-    private protected void Init()
+    private void Init()
     {
         Pool = new ObjectPool<T>
             (
                     () => Create(),
                     (entity) => Get(entity),
                     (entity) => Release(entity),
-                    (entity) => Destroy(entity),
+                    (entity) => DestroyEntity(entity),
                     _collectionCheck,
                     _poolDefaultCapacity,
                     _poolMaxCapacity
             );
     }
 
-    private protected T Create()
+    private void DestroyEntity(T entity) => 
+        GameObject.Destroy(entity.gameObject);
+
+    private void Release(T entity) =>
+        entity.gameObject.SetActive(false);
+
+    private T Create()
     {
         var instance = Instantiate(_prefab, Vector3.zero, Quaternion.identity);
         instance.transform.parent = _container.transform;
         return instance;
     }
 
-    private protected void Get(T entity)
-    {
+    private void Get(T entity) => 
         entity.gameObject.SetActive(true);
-    }
+
+    public void Clear() =>
+        Pool.Clear();
 }
