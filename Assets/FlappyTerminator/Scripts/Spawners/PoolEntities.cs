@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -20,19 +21,23 @@ public class PoolEntities<T> : MonoBehaviour where T : MonoBehaviour
             (
                     () => Create(),
                     (entity) => Get(entity),
-                    (entity) => Release(entity),
-                    (entity) => DestroyEntity(entity),
+                    (entity) => Put(entity),
+                    (entity) => GameObject.Destroy(entity.gameObject),
                     _collectionCheck,
                     _poolDefaultCapacity,
                     _poolMaxCapacity
             );
     }
 
-    private void DestroyEntity(T entity) => 
-        GameObject.Destroy(entity.gameObject);
-
-    private void Release(T entity) =>
+    private void Put(T entity)
+    {
         entity.gameObject.SetActive(false);
+    }
+
+    private void Get(T entity)
+    {
+        entity.gameObject.SetActive(true);
+    }
 
     private T Create()
     {
@@ -41,9 +46,8 @@ public class PoolEntities<T> : MonoBehaviour where T : MonoBehaviour
         return instance;
     }
 
-    private void Get(T entity) => 
-        entity.gameObject.SetActive(true);
-
-    public void Clear() =>
+    public void Reset()
+    {
         Pool.Clear();
+    }
 }

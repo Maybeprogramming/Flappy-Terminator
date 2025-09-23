@@ -1363,7 +1363,7 @@ GameObject:
   - component: {fileID: 1216162871}
   - component: {fileID: 1216162874}
   - component: {fileID: 1216162875}
-  m_Layer: 4
+  m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2369,8 +2369,8 @@ MonoBehaviour:
   _prefab: {fileID: 5275718639096881099, guid: 33e48d6a66247574c8e5e96356d50335, type: 3}
   _container: {fileID: 2545574407120061713}
   _collectionCheck: 1
-  _poolDefaultCapacity: 1
-  _poolMaxCapacity: 2
+  _poolDefaultCapacity: 5
+  _poolMaxCapacity: 10
   _player: {fileID: 1216162874}
   _speedRocket: 10
 --- !u!1660057539 &9223372036854775807

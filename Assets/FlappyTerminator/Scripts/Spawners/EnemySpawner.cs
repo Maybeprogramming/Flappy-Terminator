@@ -24,13 +24,13 @@ public class EnemySpawner : PoolEntities<Enemy>
     private void Spawn()
     {
         var enemy = Pool.Get();
-        InitEnemyPosition(enemy);
+        SetEnemyStartPosition(enemy);
         enemy.Init(_cameraPosition, _laserSpawner);
 
         enemy.Dead += OnReleased;
     }
 
-    private void InitEnemyPosition(Enemy enemy)
+    private void SetEnemyStartPosition(Enemy enemy)
     {
         var newEnemyPosition = new Vector3(_cameraPosition.transform.position.x + _xOffset, 0f, _cameraPosition.transform.position.y);
         newEnemyPosition.y = _cameraPosition.position.y + Random.Range(_lowerPointY, _upperPointY);
@@ -57,13 +57,8 @@ public class EnemySpawner : PoolEntities<Enemy>
         }
     }
 
-    internal void StartSpawning()
+    public void StartSpawning()
     {
         StartCoroutine(EnemySpawning());
-    }
-
-    internal void Reset()
-    {
-        Pool.Dispose();
     }
 }

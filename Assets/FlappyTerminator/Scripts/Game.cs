@@ -51,7 +51,6 @@ public class Game : MonoBehaviour
 
     private void StartGame()
     {
-        _enemySpawner.Reset();
         Time.timeScale = 1;
         _flappyTerminator.Reset();
         _enemySpawner.StartSpawning();

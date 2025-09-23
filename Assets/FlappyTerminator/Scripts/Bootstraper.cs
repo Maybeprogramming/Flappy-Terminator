@@ -47,10 +47,10 @@ public class Bootstraper : MonoBehaviour
 
     private void OnSpawnersReseted()
     {
-        _rocketSpawner.Clear();
-        _laserSpawner.Clear();
-        _enemySpawner.Clear();
-        _pipeSpawner.Clear();
+        _rocketSpawner.Reset();
+        _laserSpawner.Reset();
+        _enemySpawner.Reset();
+        _pipeSpawner.Reset();
     }
 
     private void InitSoundPlayer()
