@@ -1,23 +1,23 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(FlappyMover))]
+[RequireComponent(typeof(PlayerMover))]
 [RequireComponent(typeof(ScoreCounter))]
 [RequireComponent(typeof(CollisionHandler))]
-public class FlappyTerminator : MonoBehaviour, ISoundPlayable
+public class Player : MonoBehaviour, ISoundable
 {
-    private FlappyMover _flappyMover;
+    private PlayerMover _flappyMover;
     private ScoreCounter _scoreCounter;
     private CollisionHandler _collisionHandler;
 
     public event Action GameOver;
-    public event Action SoundPlayed;
+    public event Action SoundPlaying;
 
     private void Awake()
     {
         _scoreCounter = GetComponent<ScoreCounter>();
         _collisionHandler = GetComponent<CollisionHandler>();
-        _flappyMover = GetComponent<FlappyMover>();
+        _flappyMover = GetComponent<PlayerMover>();
     }
 
     private void OnEnable()
@@ -35,7 +35,7 @@ public class FlappyTerminator : MonoBehaviour, ISoundPlayable
         if (interactable is Pipe || interactable is Laser)
         {
             GameOver?.Invoke();
-            SoundPlayed?.Invoke();
+            SoundPlaying?.Invoke();
         }
         else if(interactable is ScoreZone) 
         {

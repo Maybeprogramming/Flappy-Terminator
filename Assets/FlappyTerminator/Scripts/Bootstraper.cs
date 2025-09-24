@@ -1,15 +1,14 @@
-using System;
-using UnityEditor;
 using UnityEngine;
 
 public class Bootstraper : MonoBehaviour
 {
-    [Header("Сущности")]
-    [SerializeField] private FlappyTerminator _player;
+    [Header("Игрок")]
+    [SerializeField] private Player _player;
+    [SerializeField] private Weapon _playerWeapon;
+    [SerializeField] private PlayerMover _playerMover;
 
-    [Header("Input игрока")]
+    [Header("Input")]
     [SerializeField] private InputController _inputController;
-    [SerializeField] private FlappyMover _flappyMover;
 
     [Header("Звуковые эффекты")]
     [SerializeField] private SoundPlayer _soundPlayer;
@@ -33,15 +32,15 @@ public class Bootstraper : MonoBehaviour
 
     private void OnEnable()
     {
-        _inputController.Jumped += _flappyMover.OnJumpHandler;
-        _inputController.Attacked += _rocketSpawner.OnAttackHandler;
+        _inputController.Jumped += _playerMover.OnJumpHandler;
+        _inputController.Attacked += _playerWeapon.OnAttackHandler;
         _game.Started += OnSpawnersReseted;
     }
 
     private void OnDisable()
     {
-        _inputController.Jumped -= _flappyMover.OnJumpHandler;
-        _inputController.Attacked -= _rocketSpawner.OnAttackHandler;
+        _inputController.Jumped -= _playerMover.OnJumpHandler;
+        _inputController.Attacked -= _playerWeapon.OnAttackHandler;
         _game.Started -= OnSpawnersReseted;
     }
 
@@ -55,7 +54,7 @@ public class Bootstraper : MonoBehaviour
 
     private void InitSoundPlayer()
     {
-        _playerSoundEffector.Init(_soundPlayer, _rocketSpawner);
+        _playerSoundEffector.Init(_soundPlayer, _playerWeapon);
         _enemySoundEffector.Init(_soundPlayer, _laserSpawner);
         _gameoverSoundEffector.Init(_soundPlayer, _player);
     }

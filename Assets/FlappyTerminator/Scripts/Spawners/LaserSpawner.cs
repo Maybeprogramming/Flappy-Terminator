@@ -1,12 +1,9 @@
 using System;
 using UnityEngine;
 
-public class LaserSpawner : PoolEntities<Laser>, ISoundPlayable
+public class LaserSpawner : PoolEntities<Laser>, ISoundable
 {
-    public event Action LaserSpawned;
-    public event Action SoundPlayed;
-
-    public Vector3 Position => transform.position;
+    public event Action SoundPlaying;
 
     public void Spawn(Transform enemyTransform)
     {
@@ -16,8 +13,7 @@ public class LaserSpawner : PoolEntities<Laser>, ISoundPlayable
         
         laser.Released += OnReleased;
 
-        LaserSpawned?.Invoke();
-        SoundPlayed?.Invoke();
+        SoundPlaying?.Invoke();
     }
 
     private void OnReleased(Laser laser)

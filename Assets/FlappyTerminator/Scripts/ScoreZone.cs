@@ -1,5 +1,3 @@
 using UnityEngine;
 
-public class ScoreZone : MonoBehaviour, IInteractable
-{
-}
+public class ScoreZone : MonoBehaviour, IInteractable{}

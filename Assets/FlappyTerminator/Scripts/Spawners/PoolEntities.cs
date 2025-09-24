@@ -1,22 +1,25 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
 public class PoolEntities<T> : MonoBehaviour where T : MonoBehaviour
 {
     [SerializeField] private T _prefab;
-    [SerializeField] private Transform _container;
     [SerializeField] private bool _collectionCheck;
     [SerializeField] private int _poolDefaultCapacity;
     [SerializeField] private int _poolMaxCapacity;
 
+    private protected Vector3 Position => transform.position;
     private protected ObjectPool<T> Pool;
+    
+    private Transform _container;
 
     private void Awake() => 
         Init();
 
     private void Init()
     {
+        CreateParentConteiner();
+
         Pool = new ObjectPool<T>
             (
                     () => Create(),
@@ -42,8 +45,14 @@ public class PoolEntities<T> : MonoBehaviour where T : MonoBehaviour
     private T Create()
     {
         var instance = Instantiate(_prefab, Vector3.zero, Quaternion.identity);
-        instance.transform.parent = _container.transform;
+        instance.transform.parent = _container;
         return instance;
+    }
+
+    private void CreateParentConteiner()
+    {
+        var conteiner = new GameObject($"Pool: [{_prefab.name}]");
+        _container = conteiner.transform;
     }
 
     public void Reset()

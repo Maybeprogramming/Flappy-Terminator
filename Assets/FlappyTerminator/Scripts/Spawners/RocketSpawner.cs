@@ -1,36 +1,20 @@
-using System;
 using UnityEngine;
 
-public class RocketSpawner : PoolEntities<Rocket>, ISoundPlayable
-{
-    [Header("Спавнер ракет")]
-    [SerializeField] private FlappyTerminator _player;
-    [SerializeField] private float _speedRocket;
-
-    public event Action RocketSpawned;
-    public event Action SoundPlayed;
-
-    public Vector3 Position => transform.position;
-
-    private void Spawn()
+public class RocketSpawner : PoolEntities<Rocket>
+{ 
+    public void Spawn(Transform startPosition, float speed)
     {
         var rocket = Pool.Get();
-        rocket.Init(_speedRocket);
-        rocket.transform.position = _player.transform.position;
-        rocket.transform.rotation = _player.transform.rotation;
-        rocket.FuelEnded += OnRocketEnd;
-
-        RocketSpawned?.Invoke();
-        SoundPlayed?.Invoke();
+        rocket.Init(speed);
+        rocket.transform.position = startPosition.position;
+        rocket.transform.rotation = startPosition.rotation;
+        rocket.Dead += OnRocketEnd;
     }
 
     private void OnRocketEnd(Rocket rocket)
     {
         rocket.transform.position = Position;
-        rocket.FuelEnded -= OnRocketEnd;
+        rocket.Dead -= OnRocketEnd;
         Pool.Release(rocket);
     }
-
-    public void OnAttackHandler() =>
-        Spawn();
 }

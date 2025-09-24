@@ -14,8 +14,6 @@ public class EnemySpawner : PoolEntities<Enemy>
 
     private WaitForSeconds _wait;
 
-    public Vector3 Position => transform.position;
-
     private void Start()
     {
         _wait = new WaitForSeconds(_delaySeconds);

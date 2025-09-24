@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class FlappyMover : MonoBehaviour
+public class PlayerMover : MonoBehaviour
 {
     [SerializeField] private float _tapForce;
     [SerializeField] private float _speed;
@@ -18,7 +18,6 @@ public class FlappyMover : MonoBehaviour
     {
         _startPosition = transform.position;
         _rigidbody2D = GetComponent<Rigidbody2D>();
-
         _maxRotation = Quaternion.Euler(0, 0, _maxRotationZ);
         _minRotation = Quaternion.Euler(0, 0, _minRotationZ);
 

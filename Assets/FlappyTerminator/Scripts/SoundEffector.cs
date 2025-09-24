@@ -4,17 +4,17 @@ public class SoundEffector : MonoBehaviour
 {
     [SerializeField] private Sounds _sound;
 
-    private ISoundPlayable _soundEffector;
+    private ISoundable _soundEffector;
     private SoundPlayer _soundPlayer;
 
     private void OnDestroy() => 
-        _soundEffector.SoundPlayed -= OnPlaySound;
+        _soundEffector.SoundPlaying -= OnPlaySound;
 
-    public void Init(SoundPlayer soundPlayer, ISoundPlayable soundEffector)
+    public void Init(SoundPlayer soundPlayer, ISoundable soundEffector)
     {
         _soundEffector = soundEffector;
         _soundPlayer = soundPlayer;
-        _soundEffector.SoundPlayed += OnPlaySound;
+        _soundEffector.SoundPlaying += OnPlaySound;
     }
 
     private void OnPlaySound() =>

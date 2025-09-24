@@ -2,13 +2,13 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class Rocket : MonoBehaviour
+public class Rocket : Ammo, IInteractable
 {
     [SerializeField] private float _delayFuelEnd;
     private WaitForSeconds _wait;
     private float _speed;
 
-    public event Action<Rocket> FuelEnded;
+    public event Action<Rocket> Dead;
 
     private void OnEnable()
     {
@@ -34,6 +34,6 @@ public class Rocket : MonoBehaviour
     private IEnumerator FuelEnding()
     {
         yield return _wait;
-        FuelEnded?.Invoke(this);
+        Dead?.Invoke(this);
     }
 }

@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class FlappyTracker : MonoBehaviour
+public class PlayerTracker : MonoBehaviour
 {
-    [SerializeField] private FlappyTerminator _flappyTerminator;
+    [SerializeField] private Player _player;
     [SerializeField] private float _xOffset;
 
     private void Update()
     {
         var position = transform.position;
-        position.x = _flappyTerminator.transform.position.x + _xOffset;
+        position.x = _player.transform.position.x + _xOffset;
         transform.position = position;
     }
 }
