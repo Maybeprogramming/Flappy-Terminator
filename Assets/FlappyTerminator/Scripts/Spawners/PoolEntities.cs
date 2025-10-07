@@ -1,7 +1,8 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class PoolEntities<T> : MonoBehaviour where T : MonoBehaviour
+public class PoolEntities<T> : MonoBehaviour where T: Entity
 {
     [SerializeField] private T _prefab;
     [SerializeField] private bool _collectionCheck;
@@ -12,12 +13,15 @@ public class PoolEntities<T> : MonoBehaviour where T : MonoBehaviour
     private protected ObjectPool<T> Pool;
     
     private Transform _container;
+    [SerializeField] private List<T> _spawenedEntities;
 
     private void Awake() => 
         Init();
 
     private void Init()
     {
+        _spawenedEntities = new List<T>();
+
         CreateParentConteiner();
 
         Pool = new ObjectPool<T>
@@ -34,11 +38,13 @@ public class PoolEntities<T> : MonoBehaviour where T : MonoBehaviour
 
     private void Put(T entity)
     {
+        _spawenedEntities.Remove(entity);
         entity.gameObject.SetActive(false);
     }
 
     private void Get(T entity)
     {
+        _spawenedEntities.Add(entity);
         entity.gameObject.SetActive(true);
     }
 
@@ -57,6 +63,14 @@ public class PoolEntities<T> : MonoBehaviour where T : MonoBehaviour
 
     public void Reset()
     {
-        Pool.Clear();
+        if (_spawenedEntities.Count > 0)
+        {
+            for (int i = 0; i < _spawenedEntities.Count; i++)
+            {
+                _spawenedEntities[i].Reset();
+            }
+
+            _spawenedEntities.Clear();
+        }
     }
 }

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Laser : Ammo, IInteractable
+public class Laser : Ammo
 {
     [SerializeField] private float _speed;
     [SerializeField] private float moveDirection;
@@ -24,5 +24,10 @@ public class Laser : Ammo, IInteractable
     private void Moving()
     {
         transform.position += (transform.right * Time.deltaTime * _speed) * moveDirection;
+    }
+
+    public override void Reset()
+    {
+        Released?.Invoke(this);
     }
 }

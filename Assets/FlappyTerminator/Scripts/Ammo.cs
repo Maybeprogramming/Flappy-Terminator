@@ -1,5 +1,3 @@
-using UnityEngine;
-
-public abstract class Ammo : MonoBehaviour
+public abstract class Ammo : Entity, IInteractable
 {
 }

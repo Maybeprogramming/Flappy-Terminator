@@ -40,6 +40,7 @@ public class EnemySpawner : PoolEntities<Enemy>
         enemy.transform.position = Position;
         enemy.Dead -= OnReleased;
         Pool.Release(enemy);
+
     }
 
     private IEnumerator EnemySpawning()

@@ -894,8 +894,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prefab: {fileID: 5612805394839580342, guid: 531455f814096524f91e2834958aca6b, type: 3}
   _collectionCheck: 1
-  _poolDefaultCapacity: 3
-  _poolMaxCapacity: 10
+  _poolDefaultCapacity: 1
+  _poolMaxCapacity: 3
   _delay: 4
   _lowerBound: -2
   _upperBound: 2
@@ -1737,7 +1737,7 @@ MonoBehaviour:
   _prefab: {fileID: 2894604179646082199, guid: 4c22e5ba3cd4d04449d96c3ca20db26f, type: 3}
   _collectionCheck: 1
   _poolDefaultCapacity: 2
-  _poolMaxCapacity: 5
+  _poolMaxCapacity: 3
   _cameraPosition: {fileID: 519420032}
   _laserSpawner: {fileID: 4932945762318199312}
   _delaySeconds: 1
@@ -2337,7 +2337,7 @@ MonoBehaviour:
   _prefab: {fileID: 6728543991092130193, guid: fec3d836f7ca20b418db2f2fa7c5f348, type: 3}
   _collectionCheck: 1
   _poolDefaultCapacity: 3
-  _poolMaxCapacity: 10
+  _poolMaxCapacity: 6
 --- !u!114 &4932945762318199313
 MonoBehaviour:
   m_ObjectHideFlags: 0

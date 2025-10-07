@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Entity
 {
     [SerializeField] private float _xOffset;
     [SerializeField] private Transform _cameraPosition;
@@ -23,11 +23,15 @@ public class Enemy : MonoBehaviour
         attacker.Init(laserSpawner);
     }
 
-
     private void Update()
     {
         var position = transform.position;
         position.x = _cameraPosition.transform.position.x + _xOffset;        
         transform.position = position;
+    }
+
+    public override void Reset()
+    {
+        Dead?.Invoke(this);
     }
 }

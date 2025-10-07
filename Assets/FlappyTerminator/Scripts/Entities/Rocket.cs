@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class Rocket : Ammo, IInteractable
+public class Rocket : Ammo
 {
     [SerializeField] private float _delayFuelEnd;
     private WaitForSeconds _wait;
@@ -34,6 +34,11 @@ public class Rocket : Ammo, IInteractable
     private IEnumerator FuelEnding()
     {
         yield return _wait;
+        Dead?.Invoke(this);
+    }
+
+    public override void Reset()
+    {
         Dead?.Invoke(this);
     }
 }
