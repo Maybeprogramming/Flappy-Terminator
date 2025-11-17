@@ -1,6 +1,6 @@
 using System;
 
-public interface ISoundable
+public interface ISoundEffector
 {
     event Action SoundPlaying;
 }

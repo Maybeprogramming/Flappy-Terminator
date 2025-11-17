@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class LaserSpawner : PoolEntities<Laser>, ISoundable
+public class LaserSpawner : PoolEntities<Laser>, ISoundEffector
 {
     public event Action SoundPlaying;
 

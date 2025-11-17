@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InputController : MonoBehaviour
 {
@@ -25,15 +26,15 @@ public class InputController : MonoBehaviour
         _inputSystem.Player.Jump.performed -= OnJump;
     }
 
-    public void Enable() => 
+    public void Activate() => 
         _inputSystem.Enable();
 
-    public void Disable() => 
+    public void Deactivate() => 
         _inputSystem.Disable();
 
-    private void OnJump(UnityEngine.InputSystem.InputAction.CallbackContext context) => 
+    private void OnJump(InputAction.CallbackContext context) => 
         Jumped?.Invoke();
 
-    private void OnAttack(UnityEngine.InputSystem.InputAction.CallbackContext context) =>
+    private void OnAttack(InputAction.CallbackContext context) =>
         Attacked?.Invoke();
 }

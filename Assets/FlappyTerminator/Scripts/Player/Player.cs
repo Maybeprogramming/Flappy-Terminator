@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerMover))]
 [RequireComponent(typeof(ScoreCounter))]
 [RequireComponent(typeof(CollisionHandler))]
-public class Player : MonoBehaviour, ISoundable
+public class Player : MonoBehaviour, ISoundEffector
 {
     private PlayerMover _flappyMover;
     private ScoreCounter _scoreCounter;
@@ -32,7 +32,7 @@ public class Player : MonoBehaviour, ISoundable
 
     private void OnProcessCollision(IInteractable interactable)
     {
-        if (interactable is Pipe || interactable is Laser)
+        if (interactable is Laser)
         {
             GameOver?.Invoke();
             SoundPlaying?.Invoke();

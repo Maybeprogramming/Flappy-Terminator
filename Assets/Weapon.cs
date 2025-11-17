@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Weapon: MonoBehaviour, ISoundable
+public class Weapon: MonoBehaviour, ISoundEffector
 {
     [SerializeField] private RocketSpawner _spawner;
     [SerializeField] private Transform _startPosition;

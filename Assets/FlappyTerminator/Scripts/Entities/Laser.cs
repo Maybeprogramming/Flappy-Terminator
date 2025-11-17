@@ -10,7 +10,7 @@ public class Laser : Ammo
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent<Rocket>(out _) || collision.gameObject.TryGetComponent<Player>(out _) || collision.gameObject.TryGetComponent<ObjectRemover>(out _))
+        if (collision.gameObject.TryGetComponent<Rocket>(out _) || collision.gameObject.TryGetComponent<Player>(out _))
         {
             Released?.Invoke(this);
         }

@@ -35,7 +35,7 @@ public class Game : MonoBehaviour
     {
         Time.timeScale = 0;
         _endGameScreen.Open();
-        _inputController.Disable();
+        _inputController.Deactivate();
     }
 
     private void OnRestartButtonClick()
@@ -54,7 +54,7 @@ public class Game : MonoBehaviour
         Time.timeScale = 1;
         _flappyTerminator.Reset();
         _enemySpawner.StartSpawning();
-        _inputController.Enable();
+        _inputController.Activate();
 
         Started?.Invoke();
     }

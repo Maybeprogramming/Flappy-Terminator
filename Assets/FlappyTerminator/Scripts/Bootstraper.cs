@@ -20,7 +20,6 @@ public class Bootstraper : MonoBehaviour
     [SerializeField] private RocketSpawner _rocketSpawner;
     [SerializeField] private LaserSpawner _laserSpawner;
     [SerializeField] private EnemySpawner _enemySpawner;
-    [SerializeField] private PipeSpawner _pipeSpawner;
 
     [Header("Игра")]
     [SerializeField] private Game _game;
@@ -49,7 +48,6 @@ public class Bootstraper : MonoBehaviour
         _rocketSpawner.Reset();
         _laserSpawner.Reset();
         _enemySpawner.Reset();
-        _pipeSpawner.Reset();
     }
 
     private void InitSoundPlayer()
