@@ -2,8 +2,16 @@ using UnityEngine;
 
 public class BarView : MonoBehaviour
 {
+    [SerializeField] private UIBar _bar;
+
     private ReactiveVariable<int> _maxValue;
     private ReactiveVariable<int> _currentValue;
+    private IBarProvider _barUIProvider;
+
+    private void Start()
+    {
+        _barUIProvider = _bar;
+    }
 
     private void OnDestroy()
     {
@@ -19,17 +27,28 @@ public class BarView : MonoBehaviour
         _currentValue.Changed += OnCurrentValueChanched;
         _maxValue.Changed += OnMaxValueChanched;
 
-        UpdateValue(_currentValue.Value, _maxValue.Value);
+        _barUIProvider.Init(_currentValue.Value, _maxValue.Value);
     }
 
-    private void UpdateValue(int currentValue, int maxValue)
+    private void UpdateValue(int oldValue, int newValue)
     {
-        Debug.LogError($"Метод ({nameof(UpdateValue)}) класса ({nameof(BarView)}) не реализован!");
+        if (newValue - oldValue == 1)
+        {
+            _barUIProvider.Increase();
+        }
+        else if (newValue - oldValue == -1)
+        {
+            _barUIProvider.Reduce();
+        }
+        else
+        {
+            Debug.LogError($"Значения не изменились");
+        }
     }
 
     private void OnMaxValueChanched(int oldValue, int newValue) =>
         UpdateValue(_currentValue.Value, newValue);
 
     private void OnCurrentValueChanched(int oldValue, int newValue) =>
-        UpdateValue(newValue, _maxValue.Value);
+        _barUIProvider.Init(_currentValue.Value, newValue);
 }

@@ -1,26 +1,18 @@
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class UIBar : MonoBehaviour
+public class UIBar : MonoBehaviour, IBarProvider
 {
-    [SerializeField] private GameObject _element;
-    [SerializeField] private List<GameObject> _elements;
+    [SerializeField] private GameObject _iconPrefab;
+    [SerializeField] private List<GameObject> _icons;
     [SerializeField] private RectTransform _conteiner;
 
     private int _value;
     private int _maxValue;
 
-    public int ActiveElements => _elements.Where(element => element.activeSelf == true).Count();
-    public int ElementsCount => _elements.Count();
-
-    private void Awake()
-    {
-        Init(5, 5);
-
-    }
+    public int ActiveElements => _icons.Where(element => element.activeSelf == true).Count();
+    public int ElementsCount => _icons.Count();
 
     public void Init(int currentValue, int maxValue)
     {
@@ -34,7 +26,7 @@ public class UIBar : MonoBehaviour
     {
         if (ActiveElements > 0)
         {
-           _elements.Where(element => element.activeSelf == true).Last().SetActive(false);
+            IconSetActive(false);
         }
         else
         {
@@ -46,7 +38,7 @@ public class UIBar : MonoBehaviour
     {
         if (ActiveElements < ElementsCount)
         {
-            _elements.Where(element => element.activeSelf == false).Last().SetActive(true);
+            IconSetActive(true);
         }
         else
         {
@@ -54,12 +46,17 @@ public class UIBar : MonoBehaviour
         }
     }
 
+    private void IconSetActive(bool isActive)
+    {
+        _icons.Where(element => element.activeSelf == !isActive).Last().SetActive(isActive);
+    }
+
     private void Fill(int currentValue, int maxValue)
     {
         for (int i = 0; i < maxValue; i++)
         {
-            var element = Instantiate(_element, _conteiner);
-            _elements.Add(element);
+            var element = Instantiate(_iconPrefab, _conteiner);
+            _icons.Add(element);
             
             if (i < currentValue) 
                 element.SetActive(true);

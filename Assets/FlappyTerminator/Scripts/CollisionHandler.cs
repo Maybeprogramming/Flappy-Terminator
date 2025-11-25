@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class CollisionHandler : MonoBehaviour
 {
-    public event Action<IInteractable> CollisionDetected;
+    public event Action<IDamageProvider> CollisionDetected;
 
     private void OnValidate()
     {
@@ -13,7 +13,7 @@ public class CollisionHandler : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.TryGetComponent(out IInteractable interactable))
+        if (other.TryGetComponent(out IDamageProvider interactable))
         {
             CollisionDetected?.Invoke(interactable);
         }

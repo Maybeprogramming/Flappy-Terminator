@@ -6,6 +6,8 @@ public class Laser : Ammo
     [SerializeField] private float _speed;
     [SerializeField] private float moveDirection;
 
+    [field: SerializeField] public override int Damage { get; }
+
     public event Action<Laser> Released;
 
     private void OnTriggerEnter2D(Collider2D collision)

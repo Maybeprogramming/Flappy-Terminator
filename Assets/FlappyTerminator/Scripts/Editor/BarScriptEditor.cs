@@ -10,6 +10,10 @@ public class BarScriptEditor : Editor
 
         UIBar script = (UIBar)target;
 
+        GUILayout.Space(EditorGUIUtility.singleLineHeight);
+        GUILayout.Label("Нажми на кнопки для теста бара");
+
+        GUILayout.Space(EditorGUIUtility.singleLineHeight);
         GUILayout.BeginHorizontal();
 
         if (GUILayout.Button("Отнять"))
@@ -17,7 +21,6 @@ public class BarScriptEditor : Editor
 
         if (GUILayout.Button("Прибавить"))
             script.Increase();
-
 
         GUILayout.EndHorizontal();
     }

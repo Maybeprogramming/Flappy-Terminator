@@ -8,6 +8,7 @@ public class Rocket : Ammo
     private WaitForSeconds _wait;
     private float _speed;
 
+    [field: SerializeField] public override int Damage { get; }
     public event Action<Rocket> Dead;
 
     private void OnEnable()
