@@ -1276,6 +1276,7 @@ GameObject:
   - component: {fileID: 1216162876}
   - component: {fileID: 1216162877}
   - component: {fileID: 1216162878}
+  - component: {fileID: 1216162879}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -1453,10 +1454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f38eb7653968504b9f663762eaa1afe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthValue: 5
-  _maxHealthValue: 5
   _crosshair: {fileID: 752192983}
-  _hpBar: {fileID: 1630465309}
   _ammoBar: {fileID: 1863631881}
 --- !u!114 &1216162877
 MonoBehaviour:
@@ -1490,6 +1488,21 @@ MonoBehaviour:
   _spawner: {fileID: 7991251364478240210}
   _startPosition: {fileID: 1216162864}
   _projectileSpeed: 10
+--- !u!114 &1216162879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216162862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52ae515d0f3a064bae0d9745ae979a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healthValue: 5
+  _maxHealthValue: 5
+  _hpBar: {fileID: 1630465309}
 --- !u!1 &1295379269
 GameObject:
   m_ObjectHideFlags: 0

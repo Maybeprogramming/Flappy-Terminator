@@ -5,8 +5,9 @@ public class Laser : Ammo
 {
     [SerializeField] private float _speed;
     [SerializeField] private float moveDirection;
+    [SerializeField] private int _damage;
 
-    [field: SerializeField] public override int Damage { get; }
+    public override int Damage => _damage;
 
     public event Action<Laser> Released;
 

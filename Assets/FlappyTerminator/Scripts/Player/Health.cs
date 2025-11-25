@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public class Health
 {
@@ -20,7 +21,7 @@ public class Health
             throw new ArgumentOutOfRangeException(nameof(value));
 
         if (isAlive)
-            Current.Value -= value;
+            Current.Value = Mathf.Clamp(Current.Value - value, ZeroHealth, Max.Value);
     }
 
     public void Increase(int value)
@@ -28,7 +29,7 @@ public class Health
         if (value < ZeroHealth)
             throw new ArgumentOutOfRangeException(nameof(value));
 
-        if (Current.Value + value <= Max.Value)
-            Current.Value += value;        
+        if (isAlive && Current.Value + value <= Max.Value)
+            Current.Value = Mathf.Clamp(Current.Value + value, ZeroHealth, Max.Value);
     }
 }

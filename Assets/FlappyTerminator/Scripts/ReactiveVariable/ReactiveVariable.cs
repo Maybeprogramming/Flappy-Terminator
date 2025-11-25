@@ -8,9 +8,9 @@ public class ReactiveVariable<T>
 
     public event Action<T, T> Changed;
 
-    public ReactiveVariable() : this(default) { }
+    public ReactiveVariable() : this(default(T)) { }
 
-    public ReactiveVariable(T value) : this(value, default) { }
+    public ReactiveVariable(T value) : this(value, EqualityComparer<T>.Default) { }
 
     public ReactiveVariable(T value, IEqualityComparer<T> comparer)
     {
@@ -21,13 +21,15 @@ public class ReactiveVariable<T>
     public T Value
     {
         get => _value;
-        set
-        {
-            T oldValue = _value;
-            _value = value;
+        set => SetValue(value);
+    }
 
-            if (_comparer.Equals(oldValue, value) == false)            
-                Changed?.Invoke(oldValue, _value);
-        }
+    private void SetValue(T value)
+    {
+        T oldValue = _value;
+        _value = value;
+
+        if (_comparer.Equals(oldValue, value) == false)
+            Changed?.Invoke(oldValue, _value);
     }
 }

@@ -5,10 +5,11 @@ using UnityEngine;
 public class Rocket : Ammo
 {
     [SerializeField] private float _delayFuelEnd;
+    [SerializeField] private int _damage;
     private WaitForSeconds _wait;
     private float _speed;
 
-    [field: SerializeField] public override int Damage { get; }
+    public override int Damage => _damage;
     public event Action<Rocket> Dead;
 
     private void OnEnable()

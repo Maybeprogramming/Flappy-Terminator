@@ -1,10 +1,8 @@
 using System;
 using UnityEngine;
 
-public class LaserSpawner : PoolEntities<Laser>, ISoundEffector
+public class LaserSpawner : PoolEntities<Laser>
 {
-    public event Action SoundPlaying;
-
     public void Spawn(Transform enemyTransform)
     {
         var laser = Pool.Get();
@@ -12,8 +10,6 @@ public class LaserSpawner : PoolEntities<Laser>, ISoundEffector
         laser.transform.position = laserStartPosition;
         
         laser.Released += OnReleased;
-
-        SoundPlaying?.Invoke();
     }
 
     private void OnReleased(Laser laser)

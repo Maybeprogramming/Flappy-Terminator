@@ -57,8 +57,8 @@ public class UIBar : MonoBehaviour, IBarProvider
         {
             var element = Instantiate(_iconPrefab, _conteiner);
             _icons.Add(element);
-            
-            if (i < currentValue) 
+
+            if (i < currentValue)
                 element.SetActive(true);
             else
                 element.SetActive(false);
