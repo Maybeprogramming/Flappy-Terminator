@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class UIBar : MonoBehaviour, IBarProvider
 {
-    [SerializeField] private GameObject _iconPrefab;
-    [SerializeField] private List<GameObject> _icons;
+    [SerializeField] private Icon _iconPrefab;
+    [SerializeField] private List<Icon> _icons;
     [SerializeField] private RectTransform _conteiner;
 
     private int _value;
     private int _maxValue;
 
-    public int ActiveElements => _icons.Where(element => element.activeSelf == true).Count();
+    public int ActiveElements => _icons.Where(icon => icon.gameObject.activeSelf == true).Count();
     public int ElementsCount => _icons.Count();
 
     public void Init(int currentValue, int maxValue)
@@ -48,20 +48,30 @@ public class UIBar : MonoBehaviour, IBarProvider
 
     private void IconSetActive(bool isActive)
     {
-        _icons.Where(element => element.activeSelf == !isActive).Last().SetActive(isActive);
+        _icons.Where(icon => icon.gameObject.activeSelf == !isActive).Last().gameObject.SetActive(isActive);
     }
 
     private void Fill(int currentValue, int maxValue)
     {
-        for (int i = 0; i < maxValue; i++)
+        if (_icons.Count == 0)
         {
-            var element = Instantiate(_iconPrefab, _conteiner);
-            _icons.Add(element);
+            for (int i = 0; i < maxValue; i++)
+            {
+                Icon icon = Instantiate(_iconPrefab, _conteiner);
+                _icons.Add(icon);
 
-            if (i < currentValue)
-                element.SetActive(true);
-            else
-                element.SetActive(false);
+                if (i < currentValue)
+                    icon.gameObject.SetActive(true);
+                else
+                    icon.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            foreach (Icon icon in _icons)
+            {
+                icon.gameObject.SetActive(true);
+            }
         }
     }
 }

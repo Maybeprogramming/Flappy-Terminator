@@ -23,18 +23,18 @@ public class BarView : MonoBehaviour
         _currentValue.Changed += OnCurrentValueChanched;
         _maxValue.Changed += OnMaxValueChanched;
 
-        _bar.Init(currentValue.Value, maxValue.Value);
+        _barUIProvider.Init(currentValue.Value, maxValue.Value);
     }
 
     private void UpdateValue(int oldValue, int newValue)
     {
         if (newValue - oldValue == 1)
         {
-            _bar.Increase();
+            _barUIProvider.Increase();
         }
         else if (newValue - oldValue == -1)
         {
-            _bar.Reduce();
+            _barUIProvider.Reduce();
         }
         else
         {

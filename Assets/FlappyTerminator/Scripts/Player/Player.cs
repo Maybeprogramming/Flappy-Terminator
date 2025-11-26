@@ -38,11 +38,13 @@ public class Player : MonoBehaviour
     {
         _scoreCounter.Reset();
         _flappyMover.Reset();
-        _healthViewModel.SetupDefault();
+        _healthViewModel.Reset();
+        _crosshair.gameObject.SetActive(true);
     }
 
     private void OnGameEnd()
     {
+        _crosshair.gameObject.SetActive(false);
         GameOver?.Invoke();
     }
 }

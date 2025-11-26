@@ -15,6 +15,7 @@ public class HealthViewModel : MonoBehaviour
 
     private void Awake()
     {
+        Initialize();
         _collisionHandler = GetComponent<CollisionHandler>();
     }
 
@@ -37,11 +38,18 @@ public class HealthViewModel : MonoBehaviour
             if (_health.isAlive == false)
                 Dead?.Invoke();
         }
+        else if (damageProvider is Ground) 
+        {
+            Dead?.Invoke();
+        }
     }
 
-    public void SetupDefault()
+    private void Initialize()
     {
         _health = new Health(_healthValue, _maxHealthValue);
         _hpBar.Init(_health.Current, _health.Max);
     }
+
+    public void Reset() => 
+        Initialize();
 }

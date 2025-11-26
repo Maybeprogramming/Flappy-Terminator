@@ -13,9 +13,9 @@ public class CollisionHandler : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.TryGetComponent(out IDamageProvider interactable))
+        if (other.TryGetComponent(out IDamageProvider damageProvider))
         {
-            CollisionDetected?.Invoke(interactable);
+            CollisionDetected?.Invoke(damageProvider);
         }
     }
 }
