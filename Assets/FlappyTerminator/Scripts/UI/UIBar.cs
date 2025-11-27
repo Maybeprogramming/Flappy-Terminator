@@ -24,26 +24,14 @@ public class UIBar : MonoBehaviour, IBarProvider
 
     public void Reduce()
     {
-        if (ActiveElements > 0)
-        {
+        if (ActiveElements > 0)        
             IconSetActive(false);
-        }
-        else
-        {
-            Debug.Log("Ёлементов 0");
-        }
     }
 
     public void Increase()
     {
-        if (ActiveElements < ElementsCount)
-        {
+        if (ActiveElements < ElementsCount)        
             IconSetActive(true);
-        }
-        else
-        {
-            Debug.Log("Ёлементов максимум");
-        }
     }
 
     private void IconSetActive(bool isActive)
@@ -53,25 +41,29 @@ public class UIBar : MonoBehaviour, IBarProvider
 
     private void Fill(int currentValue, int maxValue)
     {
-        if (_icons.Count == 0)
-        {
-            for (int i = 0; i < maxValue; i++)
-            {
-                Icon icon = Instantiate(_iconPrefab, _conteiner);
-                _icons.Add(icon);
+        if (_icons.Count == 0)        
+            FillEmpty(currentValue, maxValue);        
+        else        
+            Reset();        
+    }
 
-                if (i < currentValue)
-                    icon.gameObject.SetActive(true);
-                else
-                    icon.gameObject.SetActive(false);
-            }
-        }
-        else
+    private void Reset()
+    {
+        foreach (Icon icon in _icons)        
+            icon.gameObject.SetActive(true);        
+    }
+
+    private void FillEmpty(int currentValue, int maxValue)
+    {
+        for (int i = 0; i < maxValue; i++)
         {
-            foreach (Icon icon in _icons)
-            {
+            Icon icon = Instantiate(_iconPrefab, _conteiner);
+            _icons.Add(icon);
+
+            if (i < currentValue)
                 icon.gameObject.SetActive(true);
-            }
+            else
+                icon.gameObject.SetActive(false);
         }
     }
 }
