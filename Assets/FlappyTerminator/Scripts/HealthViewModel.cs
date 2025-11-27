@@ -6,7 +6,7 @@ public class HealthViewModel : MonoBehaviour
 {
     [SerializeField] private int _healthValue;
     [SerializeField] private int _maxHealthValue;
-    [SerializeField] private BarView _hpBar;
+    [SerializeField] private BarView _healthBar;
 
     private Health _health;
     private CollisionHandler _collisionHandler;
@@ -47,7 +47,7 @@ public class HealthViewModel : MonoBehaviour
     private void Initialize()
     {
         _health = new Health(_healthValue, _maxHealthValue);
-        _hpBar.Init(_health.Current, _health.Max);
+        _healthBar.Init(_health.Current, _health.Max);
     }
 
     public void Reset() => 
