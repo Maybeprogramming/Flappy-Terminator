@@ -6,6 +6,7 @@ public class Rocket : Ammo
 {
     [SerializeField] private float _delayFuelEnd;
     [SerializeField] private int _damage;
+    [SerializeField] private ParticleSystem _flameEffect;
     private WaitForSeconds _wait;
     private float _speed;
 
@@ -14,8 +15,13 @@ public class Rocket : Ammo
 
     private void OnEnable()
     {
+        _flameEffect.Play();
         _wait = new WaitForSeconds(_delayFuelEnd);
         StartCoroutine(FuelEnding());
+    }
+    private void OnDisable()
+    {
+        _flameEffect.Stop();
     }
 
     private void Update()
