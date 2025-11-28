@@ -13,14 +13,14 @@ public class Health
 
     public ReactiveVariable<int> Current { get; }
     public ReactiveVariable<int> Max { get; }
-    public bool isAlive => Current.Value > ZeroHealth;
+    public bool IsAlive => Current.Value > ZeroHealth;
 
     public void Reduce(int value)
     {
         if (value < ZeroHealth)
             throw new ArgumentOutOfRangeException(nameof(value));
 
-        if (isAlive)
+        if (IsAlive)
             Current.Value = Mathf.Clamp(Current.Value - value, ZeroHealth, Max.Value);
     }
 
@@ -29,7 +29,7 @@ public class Health
         if (value < ZeroHealth)
             throw new ArgumentOutOfRangeException(nameof(value));
 
-        if (isAlive && Current.Value + value <= Max.Value)
+        if (IsAlive && Current.Value + value <= Max.Value)
             Current.Value = Mathf.Clamp(Current.Value + value, ZeroHealth, Max.Value);
     }
 }

@@ -13,14 +13,14 @@ public class Ammo
 
     public ReactiveVariable<int> Current { get; }
     public ReactiveVariable<int> Max { get; }
-    public bool isAlive => Current.Value > ZeroAmmo;
+    public bool IsAvailable => Current.Value > ZeroAmmo;
 
     public void Reduce(int value)
     {
         if (value < ZeroAmmo)
             throw new ArgumentOutOfRangeException(nameof(value));
 
-        if (isAlive)
+        if (IsAvailable)
             Current.Value = Mathf.Clamp(Current.Value - value, ZeroAmmo, Max.Value);
     }
 
@@ -29,7 +29,7 @@ public class Ammo
         if (value < ZeroAmmo)
             throw new ArgumentOutOfRangeException(nameof(value));
 
-        if (isAlive && Current.Value + value <= Max.Value)
+        if (IsAvailable && Current.Value + value <= Max.Value)
             Current.Value = Mathf.Clamp(Current.Value + value, ZeroAmmo, Max.Value);
     }
 }

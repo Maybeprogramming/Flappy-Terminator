@@ -35,7 +35,7 @@ public class HealthViewModel : MonoBehaviour
         {
             _health.Reduce(damageProvider.Damage);
 
-            if (_health.isAlive == false)
+            if (_health.IsAlive == false)
                 Dead?.Invoke();
         }
         else if (damageProvider is Ground) 
