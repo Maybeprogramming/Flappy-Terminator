@@ -9,6 +9,7 @@ public class Atacker : MonoBehaviour
 
     private WaitForSeconds _waitBetweånAttak;
     private WaitForSeconds _waitBeforeAttack;
+    private Coroutine _firing;
 
     private void Start()
     {
@@ -18,7 +19,13 @@ public class Atacker : MonoBehaviour
 
     private void OnEnable()
     {
-        StartCoroutine(Firing());
+        _firing = StartCoroutine(Firing());
+    }
+
+    private void OnDisable()
+    {
+        if (_firing != null)
+            StopCoroutine(_firing);
     }
 
     public void Init(LaserSpawner laserSpawner)

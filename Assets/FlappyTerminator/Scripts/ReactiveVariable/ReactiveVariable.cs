@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-public class ReactiveVariable<T>
+public class ReactiveVariable<T>: IReactiveVariable<T>
 {
     private T _value;
     private readonly IEqualityComparer<T> _comparer;

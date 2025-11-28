@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Laser : Ammo
+public class Laser : AmmoEntity
 {
     [SerializeField] private float _speed;
     [SerializeField] private float moveDirection;

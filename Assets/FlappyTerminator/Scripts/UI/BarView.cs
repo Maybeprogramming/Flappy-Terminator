@@ -4,8 +4,8 @@ public class BarView : MonoBehaviour
 {
     [SerializeField] private UIBar _bar;
 
-    private ReactiveVariable<int> _maxValue;
-    private ReactiveVariable<int> _currentValue;
+    private IReactiveVariable<int> _maxValue;
+    private IReactiveVariable<int> _currentValue;
     private IBarProvider _barUIProvider;
 
     private void OnDestroy()
@@ -14,7 +14,7 @@ public class BarView : MonoBehaviour
         _maxValue.Changed -= OnMaxValueChanched;
     }
 
-    public void Init(ReactiveVariable<int> currentValue, ReactiveVariable<int> maxValue)
+    public void Init(IReactiveVariable<int> currentValue, IReactiveVariable<int> maxValue)
     {
         _barUIProvider = _bar;
         _currentValue = currentValue;
@@ -28,22 +28,19 @@ public class BarView : MonoBehaviour
 
     private void UpdateValue(int oldValue, int newValue)
     {
-        if (newValue - oldValue == 1)
+        if (newValue != oldValue)
         {
-            _barUIProvider.Increase();
-        }
-        else if (newValue - oldValue == -1)
-        {
-            _barUIProvider.Reduce();
-        }
-        else
-        {
-            Debug.LogError($"Значения не изменились");
+            _barUIProvider.SetCurrentValue(newValue);
         }
     }
 
+    private void UpdateMaxValue(int newValue)
+    {
+        _barUIProvider.Init(_currentValue.Value, newValue);
+    }
+
     private void OnMaxValueChanched(int oldValue, int newValue) =>
-        UpdateValue(oldValue, newValue);
+        UpdateMaxValue(newValue);
 
     private void OnCurrentValueChanched(int oldValue, int newValue) =>
         UpdateValue(oldValue, newValue);

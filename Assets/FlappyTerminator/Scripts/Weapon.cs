@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -6,35 +7,70 @@ public class Weapon : MonoBehaviour
     [SerializeField] private RocketSpawner _spawner;
     [SerializeField] private Transform _startPosition;
     [SerializeField] private float _projectileSpeed;
-    [SerializeField] private float _delayReloading;
+    [SerializeField] private float _timerBeetwenShootsInSeconds;
+    [SerializeField] private float _timerReloadingInSeconds;
 
-    private WaitForSeconds _delayTime;
-    private Coroutine _firing;
-    private bool _isReadyShooting;
+    [SerializeField] private int _ammoAmount;
+    [SerializeField] private int _ammoMaxAmount;
+    [SerializeField] private BarView _ammoView;
+
+    private Ammo _ammo;
+    private WaitForSeconds _delayReloadingAmmo;
+    private WaitForSeconds _delayBeetwenShoots;
+    private Coroutine _cooldowns;
+    private Coroutine _reloadingAmmo;
+    private bool _isCooldownsFinished;
+
+    public event Action Shooted;
+
+    public bool CanShoot => _ammo.Current.Value > 0 && _isCooldownsFinished;
 
     private void Awake()
     {
-        _delayTime = new WaitForSeconds(_delayReloading);
-        _isReadyShooting = true;
+        _delayBeetwenShoots = new WaitForSeconds(_timerBeetwenShootsInSeconds);
+        _delayReloadingAmmo = new WaitForSeconds(_timerReloadingInSeconds);
+        _isCooldownsFinished = true;
+        AmmoInitialize();
+    }
+
+    public void OnAttackHandler() =>
+        Fire();
+
+    private void AmmoInitialize()
+    {
+        _ammo = new Ammo(_ammoAmount, _ammoMaxAmount);
+        _ammoView.Init(_ammo.Current, _ammo.Max);
     }
 
     private void Fire()
     {
-        if (_isReadyShooting)
+        if (CanShoot)
         {
-            _isReadyShooting = false;
+            _ammo.Reduce(1);
+            _isCooldownsFinished = false;
             _spawner.Spawn(_startPosition, _projectileSpeed);
-            _firing ??= StartCoroutine(Countdown());
+            _cooldowns ??= StartCoroutine(CountdownBeetwenShooting());
+
+            Shooted?.Invoke();
+        }
+
+        if (_ammo.Current.Value == 0)
+        {
+            _reloadingAmmo ??= StartCoroutine(Reloading());
         }
     }
 
-    public void OnAttackHandler() => 
-        Fire();
-
-    private IEnumerator Countdown()
+    private IEnumerator Reloading()
     {
-        yield return _delayTime;
-        _isReadyShooting = true;
-        _firing = null;
+        yield return _delayReloadingAmmo;
+        AmmoInitialize();
+        _reloadingAmmo = null;
+    }
+
+    private IEnumerator CountdownBeetwenShooting()
+    {
+        yield return _delayBeetwenShoots;
+        _isCooldownsFinished = true;
+        _cooldowns = null;
     }
 }

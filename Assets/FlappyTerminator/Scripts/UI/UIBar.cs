@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class UIBar : MonoBehaviour, IBarProvider
 {
+    private const int ZeroIconsCount = 0;
+
     [SerializeField] private Icon _iconPrefab;
     [SerializeField] private List<Icon> _icons;
     [SerializeField] private RectTransform _conteiner;
@@ -22,16 +25,22 @@ public class UIBar : MonoBehaviour, IBarProvider
         Fill(_value, _maxValue);
     }
 
-    public void Reduce()
+    public void SetCurrentValue(int newValue)
     {
-        if (ActiveElements > 0)        
-            IconSetActive(false);
-    }
+        if (newValue < ZeroIconsCount)
+            throw new ArgumentOutOfRangeException($"Method argument: {nameof(SetCurrentValue)} cannot be less than 0");
+        else if (newValue > ElementsCount)
+            throw new ArgumentOutOfRangeException($"The argument in the method: {nameof(SetCurrentValue)} cannot be greater than the maximum value ({ElementsCount}).");
 
-    public void Increase()
-    {
-        if (ActiveElements < ElementsCount)        
-            IconSetActive(true);
+        for (int i = 0; i < newValue; i++)
+        {
+            _icons[i].gameObject.SetActive(true);
+        }
+
+        for (int i = newValue; i < _maxValue; i++)
+        {
+            _icons[i].gameObject.SetActive(false);
+        }
     }
 
     private void IconSetActive(bool isActive)
@@ -41,16 +50,16 @@ public class UIBar : MonoBehaviour, IBarProvider
 
     private void Fill(int currentValue, int maxValue)
     {
-        if (_icons.Count == 0)        
-            FillEmpty(currentValue, maxValue);        
-        else        
-            Reset();        
+        if (_icons.Count == 0)
+            FillEmpty(currentValue, maxValue);
+        else
+            Reset();
     }
 
     private void Reset()
     {
-        foreach (Icon icon in _icons)        
-            icon.gameObject.SetActive(true);        
+        foreach (Icon icon in _icons)
+            icon.gameObject.SetActive(true);
     }
 
     private void FillEmpty(int currentValue, int maxValue)

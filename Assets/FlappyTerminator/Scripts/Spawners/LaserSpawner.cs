@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class LaserSpawner : PoolEntities<Laser>
 {
+    public event Action Spawned;
+
     public void Spawn(Transform enemyTransform)
     {
         var laser = Pool.Get();
@@ -10,6 +12,7 @@ public class LaserSpawner : PoolEntities<Laser>
         laser.transform.position = laserStartPosition;
         
         laser.Released += OnReleased;
+        Spawned?.Invoke();
     }
 
     private void OnReleased(Laser laser)

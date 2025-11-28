@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class Rocket : Ammo
+public class Rocket : AmmoEntity
 {
     [SerializeField] private float _delayFuelEnd;
     [SerializeField] private int _damage;
